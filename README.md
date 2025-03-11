@@ -58,3 +58,8 @@ There is a script name run_test.sh
 
 The script will display various things on the screen show colors and also tracking mouse
 which I still don't know how all of this works
+
+Looked in to the main file and try to read and still doesn't help
+
+maybe the main X11 file will help
+
