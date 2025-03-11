@@ -18,3 +18,12 @@ MiniLibX is a small graphical library for 42School
 Here is what MiniLibX uses 
 
   X Window System
+https://en.wikipedia.org/wiki/X_Window_System
+
+
+
+The **MiniLibX** use the Xlib which is the library for Interracting with X Window System
+it also provide functions for creating and managing windows, drawing graphics, and handling inputs, 
+**miniLibx** is a very small version of Xlib for interacting with X Window System suitable for beginner
+
+
