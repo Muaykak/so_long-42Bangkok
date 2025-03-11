@@ -38,3 +38,6 @@ After looking into the readme file here
 https://github.com/42paris/minilibx-linux?tab=readme-ov-file
 
 This link also consists the requirements that MiniLibX needs
+
+Since I worked on Linux I will Install all the requirements.
+After install all the require ment let's look into what minilibx folder contains
