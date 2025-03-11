@@ -31,3 +31,5 @@ Basically the objective is to use function in MiniLibX that project provided to 
 
 ### 2. Understand the **MiniLibX** library
 
+I need to look into the MiniLibX library folder to see how each function is functioning(lol)
+
