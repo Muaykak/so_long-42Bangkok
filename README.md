@@ -33,3 +33,8 @@ Basically the objective is to use function in MiniLibX that project provided to 
 
 I need to look into the MiniLibX library folder to see how each function is functioning(lol)
 
+After looking into the readme file here
+
+https://github.com/42paris/minilibx-linux?tab=readme-ov-file
+
+This link also consists the requirements that MiniLibX needs
