@@ -63,3 +63,10 @@ Looked in to the main file and try to read and still doesn't help
 
 maybe the main X11 file will help
 
+#### Important funcitons
+
+the main need to start with mlx_init() function
+
+    void	*mlx_init()
+
+this function will that 
