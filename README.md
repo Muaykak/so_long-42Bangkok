@@ -69,4 +69,21 @@ the main need to start with mlx_init() function
 
     void	*mlx_init()
 
-this function will that 
+this function always be the first function to call
+  ,if look inside the function
+
+<img width="351" alt="Image" src="https://github.com/user-attachments/assets/732bf9b0-7769-4c58-bae2-bbb50e9e4ba9" />
+
+This function is first allocate the **t_xvar** variable. Which contain many attributes to use.
+
+  As you can see after it allocates, each attributes of this **t_xvar** variable get its value from the functions like **XOpenDisplay**, **DefaultScreen**, etc.. . 
+
+These functions are the function from X11 Xlib library 
+
+Also if we look into the manual it will be a little bit more understandable
+
+<img width="1110" alt="Image" src="https://github.com/user-attachments/assets/12b0ca92-1a4f-47f3-aad8-833916d82437" />
+
+So, te **mlx_init()** is the function that need to calls to establish the connection with the X-Server
+
+
