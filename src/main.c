@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "mlx.h"
 #include <X11/keysym.h>
+#include <X11/X.h>
 
 typedef struct	s_window
 {
@@ -20,7 +21,7 @@ typedef struct	s_window
 	void	*window;
 }				t_window;
 
-int	key_handling1(int	keysym, t_window *window)
+int	key_handling1(int keysym, t_window *window)
 {
 	if (keysym != XK_Escape)
 		return (0);
@@ -36,6 +37,15 @@ int	mouse_handling1(int button, t_window *window)
 {
 	ft_printf("mouse button press: %d\n", button);
 	(void)window;
+	return (1);
+}
+
+int	destroy_handling(t_window *window)
+{
+	mlx_destroy_window(window->mlx_connect, window->window);
+	mlx_destroy_display(window->mlx_connect);
+	free(window->mlx_connect);
+	exit(EXIT_SUCCESS);
 	return (1);
 }
 
@@ -55,6 +65,7 @@ int	main(void)
 	}
 	mlx_key_hook(win1.window, &key_handling1, &win1);
 	mlx_mouse_hook(win1.window, &mouse_handling1, &win1);
+	mlx_hook(win1.window, DestroyNotify, 0, &destroy_handling, &win1);
 	mlx_loop(mlx_connection);
 	mlx_destroy_display(mlx_connection);
 	free(mlx_connection);
