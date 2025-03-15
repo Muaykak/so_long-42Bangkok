@@ -64,6 +64,8 @@ int	mouse_handling1(int button, int x, int y, t_window *window)
 
 int	destroy_handling(t_window *window)
 {
+	if (window->img != NULL)
+		mlx_destroy_image(window->mlx_ptr, window->img->img_ptr);
 	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
 	mlx_destroy_display(window->mlx_ptr);
 	free(window->mlx_ptr);
@@ -84,7 +86,7 @@ int	image_loop(void *data)
 	t_window	*window;
 
 	window = (t_window *)data;
-	if (delay >= 100)
+	if (delay >= 10000)
 	{
 		mlx_put_image_to_window(window->mlx_ptr, window->win_ptr,
 			window->img->img_ptr, 0, 0);
@@ -102,45 +104,19 @@ int	image_loop(void *data)
 	return (1);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	void		*mlx_connection;
-	t_window	win1;
-	t_img_data	img1;
+	char	**map_data;
 
-	mlx_connection = mlx_init();
-	if (mlx_connection == NULL)
+	if (argc != 2)
 	{
-		perror("mlx_init() connection cannot establish");
+		ft_printf("Error\n"
+			"\nThis program takes one argument\nThe argument is the "
+			"path to a map file\nto use. The map filename must be in "
+			"format\n\n\"filename.ber\"\n\n");	
 		exit(EXIT_FAILURE);
 	}
-
-	win1.mlx_ptr = mlx_connection;
-	win1.win_ptr = mlx_new_window(win1.mlx_ptr, WIDTH, HEIGHT, "window1");
-	win1.height = HEIGHT;
-	win1.width = WIDTH;
-	if (win1.win_ptr == NULL)
-	{
-		mlx_destroy_display(mlx_connection);
-		free(mlx_connection);
-		exit(EXIT_FAILURE);
-	}
-	if (create_image(mlx_connection, &img1, WIDTH, HEIGHT) == 0)
-	{
-		mlx_destroy_window(mlx_connection, win1.win_ptr);
-		mlx_destroy_display(mlx_connection);
-		free(mlx_connection);
-		exit(EXIT_FAILURE);
-	}
-	win1.img = &img1;
-	paint_whole_image(&img1, WHITE);
-	paint_whole_image(&img1, RED);
-	mlx_key_hook(win1.win_ptr, &key_handling1, &win1);
-	mlx_mouse_hook(win1.win_ptr, &mouse_handling1, &win1);
-	mlx_hook(win1.win_ptr, DestroyNotify, 0, &destroy_handling, &win1);
-	mlx_hook(win1.win_ptr, MotionNotify, PointerMotionMask, &motion_handling1, &win1);
-	mlx_loop_hook(win1.mlx_ptr, &image_loop, &win1);
-	mlx_loop(mlx_connection);
-	mlx_destroy_display(mlx_connection);
-	free(mlx_connection);
+	map_data = read_map(argv[1]);
+	free(map_data);
+	return (0);
 }

@@ -1,5 +1,6 @@
 SRC_FILE	=	main.c \
-				image_utils.c
+				image_utils.c \
+				map_read_1.c
 
 SRC_OBJ		= ${addprefix ${SRC_DIR}, ${SRC_FILE}}
 

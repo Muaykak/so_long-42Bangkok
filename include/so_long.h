@@ -18,6 +18,8 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h>
+# include <math.h>
+# include <fcntl.h>
 
 # define HEIGHT 400
 # define WIDTH 400
@@ -54,6 +56,12 @@ typedef struct	s_window
 
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
 int	get_img_color(t_img_data *img, int color);
-int	create_image(void *mlx_ptr,t_img_data *img, int x, int y);
+
+t_img_data	*create_image(void *mlx_ptr, int x, int y); //use malloc
+t_img_data	*create_xpm_img(void *mlx_ptr, char *filepath); //use malloc
+
+/* Map processing */
+int	map_check_extention(char *filepath);
+char	**read_map(char *filepath);
 
 #endif
