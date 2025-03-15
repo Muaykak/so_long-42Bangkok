@@ -33,19 +33,19 @@ CFLAGS		= -Wall -Wextra -Werror
 all:		${NAME}
 
 ${OBJ_DIR}:
-			mkdir -p ${OBJ_DIR}
+			@mkdir -p ${OBJ_DIR}
 
 ${OBJ_DIR}%.o:${SRC_DIR}%.c | ${OBJ_DIR}
-			${CC} ${CFLAGS} -c -I${HEAD} $< -o $@
+			@${CC} ${CFLAGS} -c -I${HEAD} $< -o $@
 
 ${NAME}:	${OBJS}
-			ar -rcs ${NAME} ${OBJS}
+			@ar -rcs ${NAME} ${OBJS}
 
 clean:
-			rm -f ${OBJS}
+			@rm -f ${OBJS}
 
 fclean:		clean
-			rm -f ${NAME}
+			@rm -f ${NAME}
 
 re:			fclean all
 

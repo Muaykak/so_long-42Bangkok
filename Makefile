@@ -1,12 +1,22 @@
-SRC_FILE	=	main.c \
-				image_utils.c \
-				map_read_1.c
+MAIN_SRC_FILE	=	main.c
 
-SRC_OBJ		= ${addprefix ${SRC_DIR}, ${SRC_FILE}}
+IMAGE_HANDLE_SRC_FILE	=	image_utils.c 
 
-OBJ			= ${addprefix ${OBJ_DIR}, ${SRC_FILE:.c=.o}}
+MAP_PROCESS_SRC_FILE	=	map_read_1.c 
+
+SRC		=	${addprefix ${SRC_DIR}${MAIN_SRC_DIR}, ${MAIN_SRC_FILE}} \
+			${addprefix ${SRC_DIR}${IMAGE_HANDLE_SRC_DIR}, ${IMAGE_HANDLE_SRC_FILE}} \
+			${addprefix ${SRC_DIR}${MAP_PROCESS_SRC_DIR}, ${MAP_PROCESS_SRC_FILE}}
+
+OBJ			= 	${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
 
 #Directories
+
+MAIN_SRC_DIR = main/
+
+IMAGE_HANDLE_SRC_DIR = image_handle/
+
+MAP_PROCESS_SRC_DIR = map_process/
 
 SRC_DIR		= src/
 
@@ -34,27 +44,35 @@ LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}
-	${CC} ${FLAG} ${OBJ} ${LINK} -o ${NAME}
+	@${CC} ${FLAG} ${OBJ} ${LINK} -o ${NAME}
+	@echo "built ${NAME} complete"
 
 ${OBJ_DIR}:
-	mkdir -p ${OBJ_DIR}
+	@mkdir -p ${OBJ_DIR}
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c | ${OBJ_DIR}
-	${CC} ${FLAG} -c -I./include/ -I./${LFT_DIR}include/ -I./${MLX_DIR} $< -o $@
+	@mkdir -p $(dir $@)
+	@${CC} ${FLAG} -c -I./include/ -I./${LFT_DIR}include/ -I./${MLX_DIR} $< -o $@
 
 ${LIBFT}:
-	make -C ${LFT_DIR}
+	@echo "Building LIBFT"
+	@make -C ${LFT_DIR}
+	@echo "Built LIBFT SUCCESS"
 
 ${MLX}:
-	make -C ${MLX_DIR}
+	@echo "Building MLX"
+	@make -C ${MLX_DIR}
+	@echo "Built MLX SUCCESS"
 
 clean:
-	rm -f ${OBJ}
-	make fclean -C ${LFT_DIR}
-	make clean -C ${MLX_DIR}
+	@rm -f ${OBJ}
+	@make fclean -C ${LFT_DIR}
+	@make clean -C ${MLX_DIR}
+	@echo "Cleaned Project."
 
 fclean: clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
+	@echo "remove executable ${NAME}"
 
 re: fclean all
 
