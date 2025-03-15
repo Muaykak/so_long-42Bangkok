@@ -10,63 +10,63 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mlx.h"
-#include <X11/keysym.h>
-#include <X11/X.h>
-
-#define HEIGHT 400
-#define WIDTH 400
-
-typedef struct	s_window
-{
-	void	*mlx_connect;
-	void	*window;
-}				t_window;
-
-void	paint_white(t_window *window)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < WIDTH)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			mlx_pixel_put(window->mlx_connect, window->window, x, y, 0xFFFFFFFF);
-			y++;
-		}
-		x++;
-	}
-	ft_printf("paint success");
-}
+#include "so_long.h"
 
 int	key_handling1(int keysym, t_window *window)
 {
 	if (keysym != XK_Escape)
 		return (0);
 	write(1, "Exit\n", 5);
-	mlx_destroy_window(window->mlx_connect, window->window);
-	mlx_destroy_display(window->mlx_connect);
-	free(window->mlx_connect);
+	mlx_clear_window(window->mlx_ptr, window->win_ptr);
+	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
+	mlx_destroy_display(window->mlx_ptr);
+	free(window->mlx_ptr);
 	exit(EXIT_SUCCESS);
 	return (1);
 }
 
-int	mouse_handling1(int button, t_window *window)
+int	paint_whole_image(t_img_data *img, int color)
 {
-	ft_printf("mouse button press: %d\n", button);
-	(void)window;
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < img->img_width)
+	{
+		y = 0;
+		while (y < img->img_height)
+		{
+			put_pixel_img(img, x, y, color);
+			y++;
+		}
+		x++;
+	}
+	ft_printf("paint whole: %x\n", color);
+	img->color = color;
+	return (1);
+}
+
+int	mouse_handling1(int button, int x, int y, t_window *window)
+{
+	ft_printf("mouse button press: %d at: %d, %d\n", button, x, y);
+	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr,
+		window->img->img_ptr, 0, 0);
+	if ((unsigned int)window->img->color == WHITE)
+		paint_whole_image(window->img, RED);
+	else if ((unsigned int)window->img->color == RED)
+		paint_whole_image(window->img, GREEN);
+	else if ((unsigned int)window->img->color == GREEN)
+		paint_whole_image(window->img, BLUE);
+	else if ((unsigned int)window->img->color == BLUE)
+		paint_whole_image(window->img, WHITE);
 	return (1);
 }
 
 int	destroy_handling(t_window *window)
 {
-	mlx_destroy_window(window->mlx_connect, window->window);
-	mlx_destroy_display(window->mlx_connect);
-	free(window->mlx_connect);
+	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
+	mlx_destroy_display(window->mlx_ptr);
+	free(window->mlx_ptr);
 	exit(EXIT_SUCCESS);
 	return (1);
 }
@@ -78,34 +78,68 @@ int	motion_handling1(int x, int y, void *p)
 	return (1);
 }
 
+int	image_loop(void *data)
+{
+	static int	delay;
+	t_window	*window;
+
+	window = (t_window *)data;
+	if (delay >= 100)
+	{
+		mlx_put_image_to_window(window->mlx_ptr, window->win_ptr,
+			window->img->img_ptr, 0, 0);
+		if ((unsigned int)window->img->color == WHITE)
+			paint_whole_image(window->img, RED);
+		else if ((unsigned int)window->img->color == RED)
+			paint_whole_image(window->img, GREEN);
+		else if ((unsigned int)window->img->color == GREEN)
+			paint_whole_image(window->img, BLUE);
+		else if ((unsigned int)window->img->color == BLUE)
+			paint_whole_image(window->img, WHITE);
+		delay = 0;
+	}
+	delay++;
+	return (1);
+}
+
 int	main(void)
 {
 	void		*mlx_connection;
 	t_window	win1;
-	int			a;
-//	int			local_endian;
-//
-	a = 0x11223344;
-	if (((unsigned char *)&a)[0] == 0x11)
-		ft_printf("endian=1\n");
-	else
-		ft_printf("endian=0\n");
-	
-	mlx_connection = mlx_init();
+	t_img_data	img1;
 
-	win1.mlx_connect = mlx_connection;
-	win1.window = mlx_new_window(win1.mlx_connect, 400, 400, "window1");
-	if (win1.window == NULL)
+	mlx_connection = mlx_init();
+	if (mlx_connection == NULL)
+	{
+		perror("mlx_init() connection cannot establish");
+		exit(EXIT_FAILURE);
+	}
+
+	win1.mlx_ptr = mlx_connection;
+	win1.win_ptr = mlx_new_window(win1.mlx_ptr, WIDTH, HEIGHT, "window1");
+	win1.height = HEIGHT;
+	win1.width = WIDTH;
+	if (win1.win_ptr == NULL)
 	{
 		mlx_destroy_display(mlx_connection);
 		free(mlx_connection);
+		exit(EXIT_FAILURE);
 	}
-	mlx_key_hook(win1.window, &key_handling1, &win1);
-	mlx_mouse_hook(win1.window, &mouse_handling1, &win1);
-	mlx_hook(win1.window, DestroyNotify, 0, &destroy_handling, &win1);
-	mlx_hook(win1.window, MotionNotify, PointerMotionMask, &motion_handling1, &win1);
-	paint_white(&win1);
-	mlx_string_put(win1.mlx_connect, win1.window, HEIGHT / 2, WIDTH / 2, 0xFF000000, "hello world");
+	if (create_image(mlx_connection, &img1, WIDTH, HEIGHT) == 0)
+	{
+		mlx_destroy_window(mlx_connection, win1.win_ptr);
+		mlx_destroy_display(mlx_connection);
+		free(mlx_connection);
+		exit(EXIT_FAILURE);
+	}
+	win1.img = &img1;
+	paint_whole_image(&img1, WHITE);
+	paint_whole_image(&img1, RED);
+	mlx_key_hook(win1.win_ptr, &key_handling1, &win1);
+	mlx_mouse_hook(win1.win_ptr, &mouse_handling1, &win1);
+	mlx_hook(win1.win_ptr, DestroyNotify, 0, &destroy_handling, &win1);
+	mlx_hook(win1.win_ptr, MotionNotify, PointerMotionMask, &motion_handling1, &win1);
+	mlx_loop_hook(win1.mlx_ptr, &image_loop, &win1);
 	mlx_loop(mlx_connection);
 	mlx_destroy_display(mlx_connection);
 	free(mlx_connection);
