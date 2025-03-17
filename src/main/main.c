@@ -65,7 +65,10 @@ int	mouse_handling1(int button, int x, int y, t_window *window)
 int	destroy_handling(t_window *window)
 {
 	if (window->img != NULL)
+	{
 		mlx_destroy_image(window->mlx_ptr, window->img->img_ptr);
+		free(window->img);
+	}
 	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
 	mlx_destroy_display(window->mlx_ptr);
 	free(window->mlx_ptr);
@@ -108,7 +111,20 @@ int	main(int argc, char **argv)
 {
 	char	**map_data;
 	int		i;
+	t_window	win1;
+	t_img_data	*img1;
+	void		*mlx_connection;
 
+	mlx_connection = mlx_init();
+	img1 = create_xpm_img(mlx_connection, IMAGE_PATH);
+	win1.win_ptr = mlx_new_window(mlx_connection, img1->img_width, img1->img_height, "test");
+	win1.mlx_ptr = mlx_connection;
+	win1.width = img1->img_width;
+	win1.height = img1->img_height;
+	win1.img = img1;
+	mlx_put_image_to_window(mlx_connection, win1.win_ptr, img1->img_ptr, 0, 0);
+	mlx_hook(win1.win_ptr, DestroyNotify, 0, &destroy_handling, &win1);
+	mlx_loop(mlx_connection);
 	if (argc != 2)
 	{
 		ft_printf("Error\n"

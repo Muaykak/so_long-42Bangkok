@@ -29,6 +29,8 @@
 # define BLUE 0xFF0000FF
 # define WHITE 0xFFFFFFFF
 
+# define IMAGE_PATH "assets/image/out.xpm"
+
 typedef	struct	s_img_data
 {
 	void				*img_ptr;
