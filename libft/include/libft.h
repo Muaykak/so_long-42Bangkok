@@ -84,7 +84,7 @@ int		ft_puthex_big_count(unsigned int num, int *count);
 // get_next_line funct
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1024
 # endif
 
 # ifndef OPEN_MAX

@@ -63,8 +63,10 @@ t_img_data	*create_image(void *mlx_ptr, int x, int y); //use malloc
 t_img_data	*create_xpm_img(void *mlx_ptr, char *filepath); //use malloc
 
 /* Map processing */
-int		map_check_extention(char *filepath);
-char	*read_map(int fd);
 char	**get_map(char *filepath);
+int		map_check_rectangle(char **map);
+
+/* Utility Function */
+void	free_map_char(char **map_char);
 
 #endif

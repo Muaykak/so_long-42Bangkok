@@ -60,6 +60,7 @@ t_img_data	*create_xpm_img(void *mlx_ptr, char *filename)
 		free(img);
 		return (0);
 	}
+	a = 0x11223344;
 	if (((unsigned char *)&a)[0] == 0x11)
 		img->local_endian = 1;
 	else

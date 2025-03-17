@@ -12,11 +12,12 @@
 
 #include "so_long.h"
 
-int			map_check_extention(char *filepath);
-char		*read_map(int fd);
-char		**get_map(char *filepath);
-char		*map_read_check(char *new_cat, char *str, int fd);
-static char	*read_map_sub1(char *new_cat, char *str);
+char			**get_map(char *filepath);
+
+static char		*read_map(int fd);
+static int		map_check_extention(char *filepath);
+static char		*map_read_check(char *new_cat, char *str, int fd);
+static char		*read_map_sub1(char *new_cat, char *str);
 
 /* Objective : read the map as format from the path given from argument
 				RETURN as ** array of STRINGS **

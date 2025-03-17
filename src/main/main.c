@@ -124,6 +124,8 @@ int	main(int argc, char **argv)
 	map_data = get_map(argv[1]);
 	if (map_data == NULL)
 		exit(EXIT_FAILURE);
+	if (map_check_rectangle(map_data) == 0)
+		exit(EXIT_FAILURE);
 	i = 0;
 	while (map_data != NULL && map_data[i] != NULL)
 	{

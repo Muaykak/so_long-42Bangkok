@@ -2,11 +2,14 @@ MAIN_SRC_FILE	=	main.c
 
 IMAGE_HANDLE_SRC_FILE	=	image_utils.c 
 
-MAP_PROCESS_SRC_FILE	=	map_read_1.c 
+MAP_PROCESS_SRC_FILE	=	map_read_1.c map_check_rectangle.c
+
+UTILS_SRC_FILE			=	so_long_utils_1.c
 
 SRC		=	${addprefix ${SRC_DIR}${MAIN_SRC_DIR}, ${MAIN_SRC_FILE}} \
 			${addprefix ${SRC_DIR}${IMAGE_HANDLE_SRC_DIR}, ${IMAGE_HANDLE_SRC_FILE}} \
-			${addprefix ${SRC_DIR}${MAP_PROCESS_SRC_DIR}, ${MAP_PROCESS_SRC_FILE}}
+			${addprefix ${SRC_DIR}${MAP_PROCESS_SRC_DIR}, ${MAP_PROCESS_SRC_FILE}} \
+			${addprefix ${SRC_DIR}${UTILS_SRC_DIR}, ${UTILS_SRC_FILE}}
 
 OBJ			= 	${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
 
@@ -17,6 +20,8 @@ MAIN_SRC_DIR = main/
 IMAGE_HANDLE_SRC_DIR = image_handle/
 
 MAP_PROCESS_SRC_DIR = map_process/
+
+UTILS_SRC_DIR = utils/
 
 SRC_DIR		= src/
 
@@ -40,7 +45,7 @@ CC		= cc
 
 FLAG	= -Wall -Wextra -Werror
 
-LINK	= -L${MLX_DIR} -lmlx_Darwin -L${LFT_DIR} -lft -lX11 -lXext
+LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}
