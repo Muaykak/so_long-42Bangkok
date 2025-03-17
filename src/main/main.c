@@ -107,6 +107,7 @@ int	image_loop(void *data)
 int	main(int argc, char **argv)
 {
 	char	**map_data;
+	int		i;
 
 	if (argc != 2)
 	{
@@ -116,7 +117,17 @@ int	main(int argc, char **argv)
 			"format\n\n\"filename.ber\"\n\n");	
 		exit(EXIT_FAILURE);
 	}
-	map_data = read_map(argv[1]);
-	free(map_data);
+	map_data = get_map(argv[1]);
+	i = 0;
+	while (map_data != NULL && map_data[i] != NULL)
+	{
+		printf("map row[%i]: %s\n", i + 1, map_data[i]);
+		i++;
+	}
+	printf("\n\n");
+	while (map_data && i >= 0)
+		free(map_data[i--]);
+	if (map_data)
+		free(map_data);
 	return (0);
 }

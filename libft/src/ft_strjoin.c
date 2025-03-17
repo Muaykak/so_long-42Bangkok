@@ -22,13 +22,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (temp == 0)
 		return (0);
 	i = 0;
-	while (*(s1 + i) != '\0')
+	while (s1 != NULL && *(s1 + i) != '\0')
 	{
 		*(temp + i) = *(s1 + i);
 		i++;
 	}
 	k = 0;
-	while (*(s2 + k) != '\0')
+	while (s2 != NULL && *(s2 + k) != '\0')
 	{
 		*(temp + i + k) = *(s2 + k);
 		k++;
