@@ -12,9 +12,11 @@
 
 #include "so_long.h"
 
-int		map_check_extention(char *filepath);
-char	*read_map(int fd);
-char	**get_map(char *filepath);
+int			map_check_extention(char *filepath);
+char		*read_map(int fd);
+char		**get_map(char *filepath);
+char		*map_read_check(char *new_cat, char *str, int fd);
+static char	*read_map_sub1(char *new_cat, char *str);
 
 /* Objective : read the map as format from the path given from argument
 				RETURN as ** array of STRINGS **
@@ -65,14 +67,44 @@ char	*read_map(int fd)
 	while (str != NULL && ft_strncmp(str, "\n", 1) != 0)
 	{
 		temp = ft_strjoin(new_cat, str);
+		if (temp == NULL)
+			return (read_map_sub1(new_cat, str));
 		if (new_cat != NULL)
-		free(new_cat);
+			free(new_cat);
 		free(str);
 		new_cat = temp;
 		str = get_next_line(fd);
 	}
-	if (str != NULL)
+	return (map_read_check(new_cat, str, fd));
+}
+
+static char	*read_map_sub1(char *new_cat, char *str)
+{
+	if (new_cat)
+		free(new_cat);
+	if (str)
 		free(str);
+	perror("\nError\nread_map()");
+	return (NULL);
+}
+
+char	*map_read_check(char *new_cat, char *str, int fd)
+{
+	if (str == NULL)
+		return (new_cat);
+	while (str != NULL && ft_strncmp(str, "\n", 1) == 0)
+	{
+		free(str);
+		str = get_next_line(fd);
+	}
+	if (str != NULL)
+	{
+		ft_printf("Error\n: The map file should contain only one map and"
+			" should not contain any letters beside the map\n\n");
+		if (new_cat)
+			free(new_cat);
+		new_cat = NULL;
+	}
 	return (new_cat);
 }
 

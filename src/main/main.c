@@ -115,6 +115,26 @@ int	main(int argc, char **argv)
 	t_img_data	*img1;
 	void		*mlx_connection;
 
+	if (argc != 2)
+	{
+		ft_printf("Error\n\nMust have 1 argument\nThe argument"
+			" is filepath to a map file\n\n");
+		exit(EXIT_FAILURE);
+	}
+	map_data = get_map(argv[1]);
+	if (map_data == NULL)
+		exit(EXIT_FAILURE);
+	i = 0;
+	while (map_data != NULL && map_data[i] != NULL)
+	{
+		printf("map row[%i]: %s\n", i + 1, map_data[i]);
+		i++;
+	}
+	printf("\n\n");
+	while (map_data && i >= 0)
+		free(map_data[i--]);
+	if (map_data)
+		free(map_data);
 	mlx_connection = mlx_init();
 	img1 = create_xpm_img(mlx_connection, IMAGE_PATH);
 	win1.win_ptr = mlx_new_window(mlx_connection, img1->img_width, img1->img_height, "test");
@@ -133,17 +153,5 @@ int	main(int argc, char **argv)
 			"format\n\n\"filename.ber\"\n\n");	
 		exit(EXIT_FAILURE);
 	}
-	map_data = get_map(argv[1]);
-	i = 0;
-	while (map_data != NULL && map_data[i] != NULL)
-	{
-		printf("map row[%i]: %s\n", i + 1, map_data[i]);
-		i++;
-	}
-	printf("\n\n");
-	while (map_data && i >= 0)
-		free(map_data[i--]);
-	if (map_data)
-		free(map_data);
 	return (0);
 }
