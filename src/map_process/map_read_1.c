@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-char			**get_map(char *filepath);
+char			**get_map_char(char *filepath);
 
 static char		*read_map(int fd);
 static int		map_check_extention(char *filepath);
@@ -25,7 +25,7 @@ static char		*read_map_sub1(char *new_cat, char *str);
 				*** USE MALLOC OBVIOUSLY **
 */
 
-char	**get_map(char *filepath)
+char	**get_map_char(char *filepath)
 {
 	char	**map_data;
 	char	*map_read;
@@ -45,7 +45,7 @@ char	**get_map(char *filepath)
 		return (NULL);
 	map_data = ft_split(map_read, '\n');
 	if (map_data == NULL)
-		perror("\nError\nget_map()");
+		perror("\nError\nget_map_char()");
 	free(map_read);
 	return (map_data);
 }

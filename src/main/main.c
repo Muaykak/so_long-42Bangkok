@@ -109,7 +109,7 @@ int	image_loop(void *data)
 
 int	main(int argc, char **argv)
 {
-	char	**map_data;
+	t_map_data	*map_data;
 	int		i;
 	t_window	win1;
 	t_img_data	*img1;
@@ -121,22 +121,21 @@ int	main(int argc, char **argv)
 			" is filepath to a map file\n\n");
 		exit(EXIT_FAILURE);
 	}
-	map_data = get_map(argv[1]);
+	map_data = get_map_data(argv[1]);
 	if (map_data == NULL)
 		exit(EXIT_FAILURE);
-	if (map_check_rectangle(map_data) == 0)
-		exit(EXIT_FAILURE);
 	i = 0;
-	while (map_data != NULL && map_data[i] != NULL)
+	while ((map_data->map_char) != NULL && (map_data->map_char)[i] != NULL)
 	{
-		printf("map row[%i]: %s\n", i + 1, map_data[i]);
+		printf("map row[%i]: %s\n", i + 1, (map_data->map_char)[i]);
 		i++;
 	}
 	printf("\n\n");
-	while (map_data && i >= 0)
-		free(map_data[i--]);
-	if (map_data)
-		free(map_data);
+	while ((map_data->map_char) && i >= 0)
+		free((map_data->map_char)[i--]);
+	if ((map_data->map_char))
+		free((map_data->map_char));
+	free(map_data);
 	mlx_connection = mlx_init();
 	img1 = create_xpm_img(mlx_connection, IMAGE_PATH);
 	win1.win_ptr = mlx_new_window(mlx_connection, img1->img_width, img1->img_height, "test");

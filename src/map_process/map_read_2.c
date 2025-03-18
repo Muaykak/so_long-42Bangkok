@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check_rectangle.c                              :+:      :+:    :+:   */
+/*   map_read_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srussame <srussame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 23:24:29 by srussame          #+#    #+#             */
-/*   Updated: 2025/03/17 23:24:31 by srussame         ###   ########.fr       */
+/*   Created: 2025/03/18 13:20:34 by srussame          #+#    #+#             */
+/*   Updated: 2025/03/18 13:20:36 by srussame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	map_check_rectangle(char **map)
-{
-	size_t	line_size;
-	int		i;
-	
-	i = 1;
-	line_size = ft_strlen(map[0]);
-	while (map[i] != NULL)
-	{
-		if (ft_strlen(map[i]) != line_size)
-		{
-			ft_printf("The map must has rectangle shape\n");
-			free_map_char(map);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
+//int	map_check_wall(char **map_char)
+//{
+//	int width;
+//	int	height;
+//	int	i;
+//
+//	height = 0;
+//	while (map_char[height] != NULL)
+//		height++;
+//	width = ft_strlen(map_char[0]);
+//	i = 0;
+//	while (i < width)
+//	{
+//		if (map_char[0])
+//	}
+//}
