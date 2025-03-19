@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   map_check_path_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muaykak <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: srussame <srussame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 08:07:26 by muaykak           #+#    #+#             */
-/*   Updated: 2024/11/05 08:23:34 by muaykak          ###   ########.fr       */
+/*   Created: 2025/03/18 22:24:13 by srussame          #+#    #+#             */
+/*   Updated: 2025/03/18 22:24:14 by srussame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	map_check_path(t_map_data **map_data)
 {
-	if (lst == NULL || f == NULL)
-		return ;
-	while (lst != NULL)
-	{
-		(*f)(lst->content);
-		lst = lst->next;
-	}
+	(void)map_data;
+	return (1);
 }

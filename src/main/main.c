@@ -113,6 +113,7 @@ int	main(int argc, char **argv)
 	int		i;
 	t_window	win1;
 	t_img_data	*img1;
+	t_list		*temp;
 	void		*mlx_connection;
 
 	if (argc != 2)
@@ -131,10 +132,17 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	printf("\n\n");
-	while ((map_data->map_char) && i >= 0)
-		free((map_data->map_char)[i--]);
-	if ((map_data->map_char))
-		free((map_data->map_char));
+	ft_printf("map size: %dx%d\n", map_data->map_width, map_data->map_height);
+	ft_printf("player_pos: %d, %d\n", map_data->player.x, map_data->player.y);
+	ft_printf("exit_pos: %d, %d\n", map_data->exit.x, map_data->exit.y);
+	temp = map_data->collect_pos;
+	while (temp != NULL)
+	{
+		ft_printf("collect_pos: %d, %d\n", ((t_map_object *)(temp->content))->x, ((t_map_object *)(temp->content))->y);
+		temp = temp->next;
+	}
+	ft_lstclear(&(map_data->collect_pos), &free_collect);
+	free_map_char(map_data->map_char);
 	free(map_data);
 	mlx_connection = mlx_init();
 	img1 = create_xpm_img(mlx_connection, IMAGE_PATH);

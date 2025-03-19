@@ -56,14 +56,29 @@ typedef struct	s_window
 	t_img_data	*img;
 }				t_window;
 
+typedef struct s_map_object
+{
+	int		x;
+	int		y;
+	int		status;
+}				t_map_object;
+
 typedef	struct	s_map_data
 {
-	char	**map_char;
-	int		map_height;
-	int		map_width;
-	int		p_pos_x;
-	int		p_pos_y;
+	char			**map_char;
+	int				map_height;
+	int				map_width;
+	t_map_object	player;
+	t_map_object	exit;	
+	t_list			*collect_pos;
 }				t_map_data;
+
+typedef struct s_path_pos
+{
+	int	dest_pos_x;
+	int	dest_pos_y;
+}				t_path_pos;	
+
 
 
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
@@ -88,5 +103,6 @@ int		map_wall_check(t_map_data **map_data);
 
 /* Utility Function */
 void	free_map_char(char **map_char);
+void	free_collect(void *collect);
 
 #endif

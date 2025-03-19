@@ -12,6 +12,15 @@
 
 #include "so_long.h"
 
+void	free_collect(void *collect)
+{
+	t_map_object *data;
+
+	data = (t_map_object *)collect;
+	if (data)
+		free(data);
+}
+
 void	free_map_char(char **map_char)
 {
 	int i;
