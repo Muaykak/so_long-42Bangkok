@@ -7,7 +7,8 @@ MAP_PROCESS_SRC_FILE	=	map_read_1.c \
 							map_check_1.c \
 							map_check_2.c \
 							map_data_1.c \
-							map_check_path_1.c
+							map_check_path_1.c \
+							map_check_path_2.c \
 
 UTILS_SRC_FILE			=	so_long_utils_1.c
 
@@ -40,7 +41,7 @@ MLX_DIR		= minilibx-linux/
 
 LIBFT	= ${LFT_DIR}libft.a
 
-MLX		= ${MLX_DIR}libmlx_Darwin.a
+MLX		= ${MLX_DIR}libmlx_Linux.a
 
 #name
 
@@ -50,7 +51,7 @@ CC		= cc
 
 FLAG	= -Wall -Wextra -Werror
 
-LINK	= -L${MLX_DIR} -lmlx_Darwin -L${LFT_DIR} -lft -lX11 -lXext
+LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}

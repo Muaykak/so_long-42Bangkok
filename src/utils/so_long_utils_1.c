@@ -12,13 +12,14 @@
 
 #include "so_long.h"
 
+void	free_map_data(t_map_data **map_data);
+void	free_collect(void *collect);
+void	free_map_char(char **map_char);
+
 void	free_collect(void *collect)
 {
-	t_map_object *data;
-
-	data = (t_map_object *)collect;
-	if (data)
-		free(data);
+	if (collect)
+		free(collect);
 }
 
 void	free_map_char(char **map_char)
@@ -35,4 +36,15 @@ void	free_map_char(char **map_char)
 	if (map_char)
 		free(map_char);
 	return ;
+}
+
+void	free_map_data(t_map_data **map_data)
+{
+	if ((*map_data) == NULL)
+		return ;
+	if ((*map_data)->map_char != NULL)
+		free_map_char((*map_data)->map_char);
+	if ((*map_data)->collect_pos != NULL)
+		ft_lstclear(&((*map_data)->collect_pos), &free_collect);
+	free((*map_data));
 }

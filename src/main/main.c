@@ -141,9 +141,12 @@ int	main(int argc, char **argv)
 		ft_printf("collect_pos: %d, %d\n", ((t_map_object *)(temp->content))->x, ((t_map_object *)(temp->content))->y);
 		temp = temp->next;
 	}
-	ft_lstclear(&(map_data->collect_pos), &free_collect);
-	free_map_char(map_data->map_char);
-	free(map_data);
+	if (map_check_path(&map_data) == 0)
+	{
+		ft_printf("Error\n: No valid path to complete the game\n");
+		exit(EXIT_FAILURE);
+	}
+	free_map_data(&map_data);
 	mlx_connection = mlx_init();
 	img1 = create_xpm_img(mlx_connection, IMAGE_PATH);
 	win1.win_ptr = mlx_new_window(mlx_connection, img1->img_width, img1->img_height, "test");

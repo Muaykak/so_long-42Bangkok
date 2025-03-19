@@ -70,15 +70,16 @@ typedef	struct	s_map_data
 	int				map_width;
 	t_map_object	player;
 	t_map_object	exit;	
+	t_map_object	*path_dest;
 	t_list			*collect_pos;
+	t_list			*path_data;
 }				t_map_data;
 
-typedef struct s_path_pos
+typedef struct	s_map_path
 {
-	int	dest_pos_x;
-	int	dest_pos_y;
-}				t_path_pos;	
-
+	int	x;
+	int	y;
+}				t_map_path;
 
 
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
@@ -99,10 +100,14 @@ int		map_check_minimum(char **map_char);
 
 int		map_wall_check(t_map_data **map_data);
 
+int		map_check_path(t_map_data **map_data);
+void	map_check_path_sub1(t_map_data **map_data, int path_x, int path_y);
+
 /* *********************************************** */
 
 /* Utility Function */
 void	free_map_char(char **map_char);
 void	free_collect(void *collect);
+void	free_map_data(t_map_data **map_data);
 
 #endif
