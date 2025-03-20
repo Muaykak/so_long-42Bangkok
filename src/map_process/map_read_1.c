@@ -120,12 +120,12 @@ int	map_check_extention(char *filepath)
 	name_length = ft_strlen(filepath);
 	if (name_length < 5)
 	{
-		ft_printf("\nWRONG MAP filepath!\n");
+		ft_printf("Error\n\nWRONG MAP filepath!\n");
 		return (0);
 	}
 	if (ft_strncmp(&filepath[name_length - 4], ".ber", 4) != 0)
 	{
-		ft_printf("\nWRONG MAP filepath!\n");
+		ft_printf("Error\n\nWRONG MAP filepath!\n");
 		return (0);
 	}
 	return (1);

@@ -115,6 +115,8 @@ int	main(int argc, char **argv)
 	t_img_data	*img1;
 	t_list		*temp;
 	void		*mlx_connection;
+	int			res_x;
+	int			res_y;
 
 	if (argc != 2)
 	{
@@ -148,6 +150,8 @@ int	main(int argc, char **argv)
 	}
 	free_map_data(&map_data);
 	mlx_connection = mlx_init();
+	mlx_get_screen_size(mlx_connection, &res_x, &res_y);
+	ft_printf("the current display resolution width: %d, Height: %d\n", res_x, res_y);
 	img1 = create_xpm_img(mlx_connection, IMAGE_PATH);
 	win1.win_ptr = mlx_new_window(mlx_connection, img1->img_width, img1->img_height, "test");
 	win1.mlx_ptr = mlx_connection;
