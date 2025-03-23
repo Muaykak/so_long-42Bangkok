@@ -47,10 +47,14 @@ int	map_check_path(t_map_info **map_info)
 	if ((*map_info)->path_dest->status == FALSE)
 	{
 		free_map_info(map_info);
+		ft_printf("Error\n: No valid path to complete the game\n");
 		return (0);
 	}
 	if (map_check_path_sub2(map_info) == 0)
+	{
+		ft_printf("Error\n: No valid path to complete the game\n");
 		return (0);
+	}
 	return (1);
 }
 

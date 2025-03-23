@@ -125,7 +125,7 @@ int		map_check_rectangle(char **map);
 int		map_check_component(char **map_char);
 int		map_check_minimum(char **map_char);
 
-int		map_wall_check(t_map_data **map_data);
+int		map_wall_check(t_map_info **map_info);
 
 int		map_check_path(t_map_info **map_info);
 void	map_check_path_sub1(t_map_info *map_info, int path_x, int path_y);

@@ -160,11 +160,6 @@ int	main(int argc, char **argv)
 		ft_printf("collect_pos: %d, %d\n", ((t_map_data *)(temp->content))->x, ((t_map_data *)(temp->content))->y);
 		temp = temp->next;
 	}
-	if (map_check_path(&map_info) == 0)
-	{
-		ft_printf("Error\n: No valid path to complete the game\n");
-		exit(EXIT_FAILURE);
-	}
 	free_map_info(&map_info);
 	mlx_connection = mlx_init();
 	mlx_get_screen_size(mlx_connection, &res_x, &res_y);

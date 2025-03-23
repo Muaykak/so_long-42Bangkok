@@ -3,7 +3,6 @@ MAIN_SRC_FILE	=	main.c
 IMAGE_HANDLE_SRC_FILE	=	image_utils.c 
 
 MAP_PROCESS_SRC_FILE	=	map_read_1.c \
-							map_read_2.c \
 							map_check_1.c \
 							map_check_2.c \
 							map_data_1.c \
@@ -43,7 +42,7 @@ MLX_DIR		= minilibx-linux/
 
 LIBFT	= ${LFT_DIR}libft.a
 
-MLX		= ${MLX_DIR}libmlx_Darwin.a
+MLX		= ${MLX_DIR}libmlx_Linux.a
 
 #name
 
@@ -53,7 +52,7 @@ CC		= cc
 
 FLAG	= -Wall -Wextra -Werror
 
-LINK	= -L${MLX_DIR} -lmlx_Darwin -L${LFT_DIR} -lft -lX11 -lXext
+LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}

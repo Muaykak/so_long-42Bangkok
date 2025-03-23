@@ -29,5 +29,7 @@ t_map_info	*new_map_info(char *file_name)
 		free_map_info(&map_info);
 		return (NULL);
 	}
+	map_check_path(&map_info);
+	map_wall_check(&map_info);
 	return (map_info);
 }
