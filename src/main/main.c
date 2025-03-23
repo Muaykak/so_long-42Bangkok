@@ -109,8 +109,9 @@ int	image_loop(void *data)
 
 int	main(int argc, char **argv)
 {
-	t_map_data	*map_data;
-	int		i;
+	t_map_info	*map_info;
+	int		y;
+	int		x;
 	t_window	win1;
 	t_img_data	*img1;
 	t_list		*temp;
@@ -124,31 +125,47 @@ int	main(int argc, char **argv)
 			" is filepath to a map file\n\n");
 		exit(EXIT_FAILURE);
 	}
-	map_data = get_map_data(argv[1]);
-	if (map_data == NULL)
+	map_info = new_map_info(argv[1]);
+	if (map_info == NULL)
 		exit(EXIT_FAILURE);
-	i = 0;
-	while ((map_data->map_char) != NULL && (map_data->map_char)[i] != NULL)
+	ft_printf("map:\n");
+	y = 0;
+	while (map_info->map_data != NULL && (map_info->map_data)[y] != NULL)
 	{
-		printf("map row[%i]: %s\n", i + 1, (map_data->map_char)[i]);
-		i++;
+		x = 0;
+		while (x < map_info->map_width)
+		{
+			if (map_info->map_data[y][x].type == EMPTY)
+				ft_printf("0");
+			else if (map_info->map_data[y][x].type == WALL)
+				ft_printf("1");
+			else if (map_info->map_data[y][x].type == PLAYER)
+				ft_printf("P");
+			else if (map_info->map_data[y][x].type == COLLECT)
+				ft_printf("C");
+			else if (map_info->map_data[y][x].type == EXIT)
+				ft_printf("E");
+			x++;
+		}
+		ft_printf("\n");
+		y++;
 	}
-	printf("\n\n");
-	ft_printf("map size: %dx%d\n", map_data->map_width, map_data->map_height);
-	ft_printf("player_pos: %d, %d\n", map_data->player.x, map_data->player.y);
-	ft_printf("exit_pos: %d, %d\n", map_data->exit.x, map_data->exit.y);
-	temp = map_data->collect_pos;
+	ft_printf("\n");
+	ft_printf("map size: %dx%d\n", map_info->map_width, map_info->map_height);
+	ft_printf("player_pos: %d, %d\n", map_info->player->x, map_info->player->y);
+	ft_printf("exit_pos: %d, %d\n", map_info->exit->x, map_info->exit->y);
+	temp = map_info->collects;
 	while (temp != NULL)
 	{
-		ft_printf("collect_pos: %d, %d\n", ((t_map_object *)(temp->content))->x, ((t_map_object *)(temp->content))->y);
+		ft_printf("collect_pos: %d, %d\n", ((t_map_data *)(temp->content))->x, ((t_map_data *)(temp->content))->y);
 		temp = temp->next;
 	}
-	if (map_check_path(&map_data) == 0)
+	if (map_check_path(&map_info) == 0)
 	{
 		ft_printf("Error\n: No valid path to complete the game\n");
 		exit(EXIT_FAILURE);
 	}
-	free_map_data(&map_data);
+	free_map_info(&map_info);
 	mlx_connection = mlx_init();
 	mlx_get_screen_size(mlx_connection, &res_x, &res_y);
 	ft_printf("the current display resolution width: %d, Height: %d\n", res_x, res_y);

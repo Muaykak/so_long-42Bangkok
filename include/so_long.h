@@ -63,17 +63,42 @@ typedef struct s_map_object
 	int		status;
 }				t_map_object;
 
-typedef	struct	s_map_data
+typedef struct	s_map_data
 {
-	char			**map_char;
+	int		x;
+	int		y;
+	enum	e_object_type
+	{
+		EMPTY,
+		WALL,
+		PLAYER,
+		EXIT,
+		COLLECT
+	}		type;
+	enum	e_object_status
+	{
+		FALSE,
+		TRUE
+	}		status;
+	struct	s_img_coordinate
+	{
+		int	x;
+		int	y;
+	}		img_link_coor;	
+	t_img_data	*object_img;
+}				t_map_data;
+
+typedef	struct	s_map_info
+{
+	t_map_data		**map_data;
 	int				map_height;
 	int				map_width;
-	t_map_object	player;
-	t_map_object	exit;	
-	t_map_object	*path_dest;
-	t_list			*collect_pos;
+	t_map_data		*player;
+	t_map_data		*exit;	
+	t_list			*collects;
+	t_map_data		*path_dest;
 	t_list			*path_data;
-}				t_map_data;
+}				t_map_info;
 
 typedef struct	s_map_path
 {
@@ -90,7 +115,9 @@ t_img_data	*create_xpm_img(void *mlx_ptr, char *filepath); //use malloc
 
 /* ************** . Map processing . ************* */
 char		**get_map_char(char *filepath); //use malloc
-t_map_data	*get_map_data(char *filepath); //use malloc
+int			get_map_data(char *filepath, t_map_info **map_info);
+t_map_data	**get_empty_map_data(char **map_data);
+t_map_info	*new_map_info(char *file_name);
 
 // Map_check
 int		map_char_check(char **map_char);
@@ -100,14 +127,17 @@ int		map_check_minimum(char **map_char);
 
 int		map_wall_check(t_map_data **map_data);
 
-int		map_check_path(t_map_data **map_data);
-void	map_check_path_sub1(t_map_data **map_data, int path_x, int path_y);
+int		map_check_path(t_map_info **map_info);
+void	map_check_path_sub1(t_map_info *map_info, int path_x, int path_y);
+int		map_check_path_data(t_list **path_data, int path_x, int path_y);
 
 /* *********************************************** */
 
 /* Utility Function */
-void	free_map_char(char **map_char);
+void	free_map_char(char ***map_char);
 void	free_collect(void *collect);
-void	free_map_data(t_map_data **map_data);
+void	free_map_data(t_map_data ***map_data);
+void	free_map_info(t_map_info **map_info);
+void	free_path_data(void *path_data);
 
 #endif

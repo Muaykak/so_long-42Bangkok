@@ -7,6 +7,8 @@ MAP_PROCESS_SRC_FILE	=	map_read_1.c \
 							map_check_1.c \
 							map_check_2.c \
 							map_data_1.c \
+							map_data_2.c \
+							map_data_3.c \
 							map_check_path_1.c \
 							map_check_path_2.c \
 

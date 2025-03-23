@@ -43,7 +43,7 @@ int	map_check_rectangle(char **map)
 		if (ft_strlen(map[i]) != line_size)
 		{
 			ft_printf("Error\n: The map must has rectangle shape\n");
-			free_map_char(map);
+			free_map_char(&map);
 			return (0);
 		}
 		i++;
@@ -76,7 +76,7 @@ int	map_check_component(char **map_char)
 					" characters:\n0 for an empty space,\n1 for a wall,\nC "
 					"for a collectible,\nE for a map exit,\nP for the player’"
 					"s starting position.\n");
-				free_map_char(map_char);
+				free_map_char(&map_char);
 				return (0);
 			}
 			x++;
@@ -125,7 +125,7 @@ static int	map_check_minimum_sub1(int *count, char **map_char)
 	{
 		ft_printf("Error\n: To be valid, a map must contain 1 exit, 1 starting "
 			"position\n and at least 1 collectible.\n");
-		free_map_char(map_char);
+		free_map_char(&map_char);
 		return (0);
 	}
 	return (1);

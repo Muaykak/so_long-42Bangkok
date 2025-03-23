@@ -12,12 +12,9 @@
 
 #include "so_long.h"
 
-t_map_data	*get_map_data(char *filepath);
-
-//static void	map_data_player_pos(t_map_data **map_data);
-static void	map_data_put_data(t_map_data **map_data);
-static void	map_data_get_pos(t_map_data **map_data);
-void	map_data_collect_pos(t_map_data **map_data);
+t_map_data			**get_empty_map_data(char **map_char);
+static t_map_data	**get_empty_map_data_sub1(int map_height, int map_width,
+						t_map_data **new_map_data);
 
 /* THis function take an argument THE MAP PATHNAME  and 
 	take the [char **] from get_map_char 
@@ -28,104 +25,48 @@ void	map_data_collect_pos(t_map_data **map_data);
 	many useful attributes to use
 
 */
-
-t_map_data	*get_map_data(char *filepath)
+static t_map_data	**get_empty_map_data_sub1(int map_height, int map_width,
+	t_map_data **new_map_data)
 {
-	t_map_data *new_map_data;
-	char	**map_char;
+	int	temp;
 
-	map_char = get_map_char(filepath);
-	if (map_char == NULL)
-		return (0);
-	if (map_char_check(map_char) == 0)
-		return (0);
-	new_map_data = (t_map_data *)ft_calloc(1, sizeof(t_map_data));
-	if (new_map_data == NULL)
+	temp = 0;
+	while (temp < map_height)
 	{
-		perror("\nError\nget_map_data()");
-		free(map_char);
-		return (0);
+		new_map_data[temp] = (t_map_data *)ft_calloc(map_width, sizeof(t_map_data));
+		if (new_map_data[temp] == NULL)
+		{
+			perror("Error\nget_map_data(): ");
+			while (temp - 1 >= 0)
+			{
+				free(new_map_data[temp - 1]);
+				temp--;
+			}
+			free(new_map_data);
+			return (0);
+		}
+		temp++;
 	}
-	new_map_data->map_char = map_char;
-	map_data_put_data(&new_map_data);
-	map_wall_check(&new_map_data);
 	return (new_map_data);
 }
 
-static void	map_data_put_data(t_map_data **map_data)
+t_map_data	**get_empty_map_data(char **map_char)
 {
-	(*map_data)->map_width = ft_strlen(((*map_data)->map_char)[0]);
-	while (((*map_data)->map_char)[(*map_data)->map_height] != NULL)
-	(*map_data)->map_height++;
-	map_data_get_pos(map_data);
-}
+	int			map_height;
+	int			map_width;
+	t_map_data	**new_map_data;
 
-static void	map_data_get_pos(t_map_data **map_data)
-{
-	t_map_object	*collect;
-	int				x;
-	int				y;
-
-	if (map_data == NULL || *map_data == NULL)
-		return ;
-	y = 0;
-	while (y < (*map_data)->map_height)
+	if (map_char == NULL)
+		return (0);
+	map_height = 0;
+	map_width = ft_strlen(map_char[0]);
+	while (map_char[map_height] != NULL)
+		map_height++;
+	new_map_data = (t_map_data **)ft_calloc(map_height + 1, sizeof(t_map_data *));
+	if (new_map_data == NULL)
 	{
-		x = 0;
-		while (x < (*map_data)->map_width)
-		{
-			if (((*map_data)->map_char)[y][x] == 'E')
-			{
-				(*map_data)->exit.x = x;
-				(*map_data)->exit.y = y;
-				
-			}
-			else if (((*map_data)->map_char)[y][x] == 'P')
-			{
-				(*map_data)->player.x = x;
-				(*map_data)->player.y = y;
-			}
-			else if (((*map_data)->map_char)[y][x] == 'C')
-			{
-				collect = (t_map_object *)ft_calloc(1, sizeof(t_map_object));
-				if (collect == NULL)
-				{
-					perror("Error\nmap_data_collect_pos: ");
-					if ((*map_data)->collect_pos != NULL)
-						ft_lstclear(&((*map_data)->collect_pos), &free_collect);
-					free_map_char((*map_data)->map_char);
-					free(*map_data);
-					*map_data = 0;
-				}
-				collect->x = x;
-				collect->y = y;
-				ft_lstadd_back(&((*map_data)->collect_pos), ft_lstnew(&collect[0]));
-				collect = 0;
-			}
-			x++;
-		}
-		y++;
+		perror("Error\nget_map_data(): ");
+		return (0);
 	}
+	return (get_empty_map_data_sub1(map_height, map_width, new_map_data));
 }
-
-//static void	map_data_player_pos(t_map_data **map_data)
-//{
-//	if (map_data == NULL || (*map_data) == NULL)
-//		return ;
-//	while ((*map_data)->p_pos_y < (*map_data)->map_height)
-//	{
-//		(*map_data)->p_pos_x = 0;
-//		while ((*map_data)->p_pos_x < (*map_data)->map_width)
-//		{
-//			if (((*map_data)->map_char)[(*map_data)->p_pos_y][(*map_data)->p_pos_x] == 'P')
-//				return ;
-//			(*map_data)->p_pos_x++;
-//		}
-//		(*map_data)->p_pos_y++;
-//	}
-//	ft_printf("\nError\nno player position in the map\n\n");
-//	free_map_char((*map_data)->map_char);
-//	free((*map_data));
-//	(*map_data) = NULL;
-//	return ;
-//}
