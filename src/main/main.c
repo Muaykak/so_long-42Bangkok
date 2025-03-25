@@ -137,8 +137,8 @@ int	main(int argc, char **argv)
 	free_map_info(&map_info);
 	mlx_connection = mlx_init();
 	mlx_get_screen_size(mlx_connection, &res_x, &res_y);
-	scale_img = create_xpm_image_scale(mlx_connection, IMAGE_PATH, 70, 70);
-	win1.win_ptr = mlx_new_window(mlx_connection, scale_img->img_width, scale_img->img_height, "test");
+	scale_img = create_xpm_image_scale(mlx_connection, IMAGE_PATH, 16, 16);
+	win1.win_ptr = mlx_new_window(mlx_connection, 100, 100, "test");
 	win1.mlx_ptr = mlx_connection;
 	win1.width = scale_img->img_width;
 	win1.height = scale_img->img_height;
