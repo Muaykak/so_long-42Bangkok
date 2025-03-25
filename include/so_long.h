@@ -31,6 +31,7 @@
 
 # define IMAGE_PATH "assets/image/out.xpm"
 
+
 typedef	struct	s_img_data
 {
 	void				*img_ptr;
@@ -45,6 +46,8 @@ typedef	struct	s_img_data
 	int					color;
 	struct s_img_data	*next;
 	struct s_img_data	*first;
+	struct s_img_data	*orig_img;
+	t_list				*img_scaling;
 }				t_img_data;
 
 typedef struct	s_window
@@ -106,12 +109,31 @@ typedef struct	s_map_path
 	int	y;
 }				t_map_path;
 
+typedef struct	s_img_scale_data
+{
+	double	factor_x;
+	double	factor_y;
+	double	factor_min;
+	int	scale_width;
+	int	scale_height;
+	int	offset_x;
+	int	offset_y;
+}				t_img_scale_data;
 
+/* ***************** IMAGE HANDLING ********************* */
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
 int	get_img_color(t_img_data *img, int color);
+int	get_pixel_color(t_img_data *img, int x, int y);
 
 t_img_data	*create_image(void *mlx_ptr, int x, int y); //use malloc
 t_img_data	*create_xpm_img(void *mlx_ptr, char *filepath); //use malloc
+t_img_data	*create_xpm_image_scale(void *mlx_ptr,
+				char *filename, int x, int y);
+
+// Image Scaling
+t_img_data	*img_scaling(t_img_data *orig_img, int x, int y);
+
+/* ****************************************************** */
 
 /* ************** . Map processing . ************* */
 char		**get_map_char(char *filepath); //use malloc
@@ -132,6 +154,9 @@ void	map_check_path_sub1(t_map_info *map_info, int path_x, int path_y);
 int		map_check_path_data(t_list **path_data, int path_x, int path_y);
 
 /* *********************************************** */
+
+/* Hooks Handling */
+void	so_long_exit_hooks(t_window *so_long_win);
 
 /* Utility Function */
 void	free_map_char(char ***map_char);

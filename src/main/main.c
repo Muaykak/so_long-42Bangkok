@@ -12,19 +12,6 @@
 
 #include "so_long.h"
 
-int	key_handling1(int keysym, t_window *window)
-{
-	if (keysym != XK_Escape)
-		return (0);
-	write(1, "Exit\n", 5);
-	mlx_clear_window(window->mlx_ptr, window->win_ptr);
-	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
-	mlx_destroy_display(window->mlx_ptr);
-	free(window->mlx_ptr);
-	exit(EXIT_SUCCESS);
-	return (1);
-}
-
 int	paint_whole_image(t_img_data *img, int color)
 {
 	int	x;
@@ -62,19 +49,6 @@ int	mouse_handling1(int button, int x, int y, t_window *window)
 	return (1);
 }
 
-int	destroy_handling(t_window *window)
-{
-	if (window->img != NULL)
-	{
-		mlx_destroy_image(window->mlx_ptr, window->img->img_ptr);
-		free(window->img);
-	}
-	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
-	mlx_destroy_display(window->mlx_ptr);
-	free(window->mlx_ptr);
-	exit(EXIT_SUCCESS);
-	return (1);
-}
 
 int	motion_handling1(int x, int y, void *p)
 {
@@ -113,7 +87,7 @@ int	main(int argc, char **argv)
 	int		y;
 	int		x;
 	t_window	win1;
-	t_img_data	*img1;
+	t_img_data	*scale_img;
 	t_list		*temp;
 	void		*mlx_connection;
 	int			res_x;
@@ -163,23 +137,14 @@ int	main(int argc, char **argv)
 	free_map_info(&map_info);
 	mlx_connection = mlx_init();
 	mlx_get_screen_size(mlx_connection, &res_x, &res_y);
-	ft_printf("the current display resolution width: %d, Height: %d\n", res_x, res_y);
-	img1 = create_xpm_img(mlx_connection, IMAGE_PATH);
-	win1.win_ptr = mlx_new_window(mlx_connection, img1->img_width, img1->img_height, "test");
+	scale_img = create_xpm_image_scale(mlx_connection, IMAGE_PATH, 70, 70);
+	win1.win_ptr = mlx_new_window(mlx_connection, scale_img->img_width, scale_img->img_height, "test");
 	win1.mlx_ptr = mlx_connection;
-	win1.width = img1->img_width;
-	win1.height = img1->img_height;
-	win1.img = img1;
-	mlx_put_image_to_window(mlx_connection, win1.win_ptr, img1->img_ptr, 0, 0);
-	mlx_hook(win1.win_ptr, DestroyNotify, 0, &destroy_handling, &win1);
+	win1.width = scale_img->img_width;
+	win1.height = scale_img->img_height;
+	win1.img = scale_img;
+	mlx_put_image_to_window(mlx_connection, win1.win_ptr, scale_img->img_ptr, 0, 0);
+	so_long_exit_hooks(&win1);
 	mlx_loop(mlx_connection);
-	if (argc != 2)
-	{
-		ft_printf("Error\n"
-			"\nThis program takes one argument\nThe argument is the "
-			"path to a map file\nto use. The map filename must be in "
-			"format\n\n\"filename.ber\"\n\n");	
-		exit(EXIT_FAILURE);
-	}
 	return (0);
 }

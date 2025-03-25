@@ -12,10 +12,11 @@
 
 #include "so_long.h"
 
-int	get_img_color(t_img_data *img, int color);
-int	put_pixel_img(t_img_data *img, int x, int y, int color);
+int			get_img_color(t_img_data *img, int color);
+int			put_pixel_img(t_img_data *img, int x, int y, int color);
 t_img_data	*create_image(void *mlx_ptr, int x, int y);
 t_img_data	*create_xpm_img(void *mlx_ptr, char *filename);
+int			get_pixel_color(t_img_data *img, int x, int y);
 
 t_img_data	*create_image(void *mlx_ptr, int x, int y)
 {
@@ -29,6 +30,7 @@ t_img_data	*create_image(void *mlx_ptr, int x, int y)
 	new_img->img_ptr = mlx_new_image(mlx_ptr, x, y);
 	if (new_img->img_ptr == NULL)
 	{
+		perror("Error\ncreate_img(): ");
 		free(new_img);
 		return (0);
 	}
@@ -45,6 +47,7 @@ t_img_data	*create_image(void *mlx_ptr, int x, int y)
 	return (new_img);
 }
 
+// create an image data from xpm image data
 t_img_data	*create_xpm_img(void *mlx_ptr, char *filename)
 {
 	int			a;
@@ -57,6 +60,7 @@ t_img_data	*create_xpm_img(void *mlx_ptr, char *filename)
 		&img->img_width, &img->img_height);
 	if (img->img_ptr == NULL)
 	{
+		perror("Error\ncreate_xpm_img(): ");
 		free(img);
 		return (0);
 	}
@@ -71,6 +75,7 @@ t_img_data	*create_xpm_img(void *mlx_ptr, char *filename)
 	return (img);
 }
 
+// put the color into that pixel of the image in x,y coordinates
 int	put_pixel_img(t_img_data *img, int x, int y, int color)
 {
 	char	*target;
@@ -82,6 +87,7 @@ int	put_pixel_img(t_img_data *img, int x, int y, int color)
 	return (1);
 }
 
+// convert color code based on the local endian
 int	get_img_color(t_img_data *img, int color)
 {
 	int	correct_color;
@@ -95,4 +101,17 @@ int	get_img_color(t_img_data *img, int color)
 	((unsigned char *)&invert_bits)[2] = ((unsigned char *)&correct_color)[1];
 	((unsigned char *)&invert_bits)[3] = ((unsigned char *)&correct_color)[0];
 	return (invert_bits);
+}
+
+// get the color value of a pixel of an img by x,y coordinate
+int	get_pixel_color(t_img_data *img, int x, int y)
+{
+	int		pixel_color;
+	char	*target;
+
+	if (x > img->img_width || y > img->img_height)
+		return (0);
+	target = img->addr + ((y * img->size_line) + (x * (img->bpp / 8)));
+	pixel_color = *((unsigned int *)target);
+	return (pixel_color);
 }
