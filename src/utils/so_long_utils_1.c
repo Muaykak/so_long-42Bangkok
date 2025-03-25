@@ -63,6 +63,8 @@ void	free_map_info(t_map_info **map_info)
 		return ;
 	if ((*map_info)->map_data != NULL)
 		free_map_data(&((*map_info)->map_data));
+	if ((*map_info)->collects != NULL)
+		ft_lstclear(&((*map_info)->collects), &free_collect);
 	free(*map_info);
 	(*map_info) = NULL;
 	return ;
