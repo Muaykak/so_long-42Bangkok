@@ -18,6 +18,7 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h>
+# include <limits.h>
 # include <math.h>
 # include <fcntl.h>
 
@@ -29,8 +30,26 @@
 # define BLUE 0xFF0000FF
 # define WHITE 0xFFFFFFFF
 
+# ifndef SOLONG_MIN_WINDOW_SIZE
+#  define SOLONG_MIN_WINDOW_SIZE 100
+# endif
+
+# ifndef SOLONG_MIN_GRID_SIZE
+#  define SOLONG_MIN_GRID_SIZE 32
+# endif
+
 # define IMAGE_PATH "assets/image/out.xpm"
 
+enum	e_object_type
+{
+	EMPTY,
+	BACKGROUND,
+	FLOOR,
+	WALL,
+	PLAYER,
+	EXIT,
+	COLLECT
+};
 
 typedef	struct	s_img_data
 {
@@ -47,17 +66,8 @@ typedef	struct	s_img_data
 	struct s_img_data	*next;
 	struct s_img_data	*first;
 	struct s_img_data	*orig_img;
-	t_list				*img_scaling;
+	enum e_object_type	obj_type;
 }				t_img_data;
-
-typedef struct	s_window
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	int			width;
-	int			height;
-	t_img_data	*img;
-}				t_window;
 
 typedef struct s_map_object
 {
@@ -70,14 +80,7 @@ typedef struct	s_map_data
 {
 	int		x;
 	int		y;
-	enum	e_object_type
-	{
-		EMPTY,
-		WALL,
-		PLAYER,
-		EXIT,
-		COLLECT
-	}		type;
+	enum	e_object_type	type;
 	enum	e_object_status
 	{
 		FALSE,
@@ -119,6 +122,25 @@ typedef struct	s_img_scale_data
 	int	offset_x;
 	int	offset_y;
 }				t_img_scale_data;
+
+typedef struct	s_so_long
+{
+	t_map_info		*map_info;
+	t_list			*img_list;	
+	int				grid_size;
+	int				canvas_x;
+	unsigned int	num_moves;
+}				t_so_long;
+
+typedef struct	s_window
+{
+	void			*mlx_ptr;
+	void			*win_ptr;
+	int				width;
+	int				height;
+	t_so_long		*so_long_info;
+	t_img_data		*img;
+}				t_window;
 
 /* ***************** IMAGE HANDLING ********************* */
 int	put_pixel_img(t_img_data *img, int x, int y, int color);

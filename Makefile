@@ -15,7 +15,8 @@ MAP_PROCESS_SRC_FILE	=	map_read_1.c \
 
 UTILS_SRC_FILE			=	so_long_utils_1.c
 
-HOOKS_SRC_FILE			=	exit_hooks.c
+HOOKS_SRC_FILE			=	exit_hooks.c \
+							control_hooks.c \
 
 SRC		=	${addprefix ${SRC_DIR}${MAIN_SRC_DIR}, ${MAIN_SRC_FILE}} \
 			${addprefix ${SRC_DIR}${IMAGE_HANDLE_SRC_DIR}, ${IMAGE_HANDLE_SRC_FILE}} \
@@ -49,7 +50,7 @@ MLX_DIR		= minilibx-linux/
 
 LIBFT	= ${LFT_DIR}libft.a
 
-MLX		= ${MLX_DIR}libmlx_Darwin.a
+MLX		= ${MLX_DIR}libmlx_Linux.a
 
 #name
 
@@ -59,7 +60,7 @@ CC		= cc
 
 FLAG	= -Wall -Wextra -Werror
 
-LINK	= -L${MLX_DIR} -lmlx_Darwin -L${LFT_DIR} -lft -lX11 -lXext -lm
+LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext -lm
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}
