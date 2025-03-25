@@ -1,4 +1,7 @@
-MAIN_SRC_FILE	=	main.c
+MAIN_SRC_FILE	=	main.c \
+
+SO_LONG_SRC_FILE		=	create_so_long_1.c \
+							create_window_1.c \
 
 IMAGE_HANDLE_SRC_FILE	=	image_utils.c \
 							img_scaling_1.c \
@@ -13,7 +16,8 @@ MAP_PROCESS_SRC_FILE	=	map_read_1.c \
 							map_check_path_1.c \
 							map_check_path_2.c \
 
-UTILS_SRC_FILE			=	so_long_utils_1.c
+UTILS_SRC_FILE			=	so_long_utils_1.c \
+							so_long_utils_2.c \
 
 HOOKS_SRC_FILE			=	exit_hooks.c \
 							control_hooks.c \
@@ -22,11 +26,14 @@ SRC		=	${addprefix ${SRC_DIR}${MAIN_SRC_DIR}, ${MAIN_SRC_FILE}} \
 			${addprefix ${SRC_DIR}${IMAGE_HANDLE_SRC_DIR}, ${IMAGE_HANDLE_SRC_FILE}} \
 			${addprefix ${SRC_DIR}${MAP_PROCESS_SRC_DIR}, ${MAP_PROCESS_SRC_FILE}} \
 			${addprefix ${SRC_DIR}${UTILS_SRC_DIR}, ${UTILS_SRC_FILE}} \
-			${addprefix ${SRC_DIR}${HOOKS_SRC_DIR}, ${HOOKS_SRC_FILE}}
+			${addprefix ${SRC_DIR}${HOOKS_SRC_DIR}, ${HOOKS_SRC_FILE}} \
+			${addprefix ${SRC_DIR}${SO_LONG_SRC_DIR}, ${SO_LONG_SRC_FILE}}
 
 OBJ			= 	${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
 
 #Directories
+
+SO_LONG_SRC_DIR = solong/
 
 HOOKS_SRC_DIR = hooks/
 
@@ -50,7 +57,7 @@ MLX_DIR		= minilibx-linux/
 
 LIBFT	= ${LFT_DIR}libft.a
 
-MLX		= ${MLX_DIR}libmlx_Linux.a
+MLX		= ${MLX_DIR}libmlx_Darwin.a
 
 #name
 
@@ -60,7 +67,7 @@ CC		= cc
 
 FLAG	= -Wall -Wextra -Werror
 
-LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext -lm
+LINK	= -L${MLX_DIR} -lmlx_Darwin -L${LFT_DIR} -lft -lX11 -lXext -lm
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}

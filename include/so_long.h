@@ -34,9 +34,14 @@
 #  define SOLONG_MIN_WINDOW_SIZE 100
 # endif
 
-# ifndef SOLONG_MIN_GRID_SIZE
+# define SOLONG_MAX_WIN_RATIO 0.8
+# define SOLONG_GRID_SIZE_RATIO 0.05
 #  define SOLONG_MIN_GRID_SIZE 32
+
+# ifndef SOLONG_MAX_MAP_SIZE
+#  define SOLONG_MAX_MAP_SIZE 100
 # endif
+
 
 # define IMAGE_PATH "assets/image/out.xpm"
 
@@ -123,24 +128,33 @@ typedef struct	s_img_scale_data
 	int	offset_y;
 }				t_img_scale_data;
 
-typedef struct	s_so_long
-{
-	t_map_info		*map_info;
-	t_list			*img_list;	
-	int				grid_size;
-	int				canvas_x;
-	unsigned int	num_moves;
-}				t_so_long;
-
 typedef struct	s_window
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	int				width;
 	int				height;
-	t_so_long		*so_long_info;
 	t_img_data		*img;
 }				t_window;
+
+typedef struct	s_so_long
+{
+	t_window		*window;
+	t_map_info		*map_info;
+	t_list			*img_list;
+	int				max_win_x;
+	int				max_win_y;
+	int				canvas_x;
+	int				canvas_y;
+	int				display_width;
+	int				display_height;
+	int				grid_size;
+	unsigned int	num_moves;
+}				t_so_long;
+
+/* *********************** MAIN PART *********************/
+t_so_long	*create_so_long(void *mlx_ptr, t_map_info *map_info);
+t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr);
 
 /* ***************** IMAGE HANDLING ********************* */
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
@@ -178,7 +192,9 @@ int		map_check_path_data(t_list **path_data, int path_x, int path_y);
 /* *********************************************** */
 
 /* Hooks Handling */
-void	so_long_exit_hooks(t_window *so_long_win);
+void	so_long_exit_hooks(t_so_long *so_long);
+int		key_handling(int keysym, t_so_long *so_long);
+int		destroy_handling(t_so_long *so_long);
 
 /* Utility Function */
 void	free_map_char(char ***map_char);
@@ -186,5 +202,8 @@ void	free_collect(void *collect);
 void	free_map_data(t_map_data ***map_data);
 void	free_map_info(t_map_info **map_info);
 void	free_path_data(void *path_data);
+void	free_so_long(t_so_long **so_long);
+void	free_img_data(void *p);
+void	destroy_all_img(t_img_data *img);
 
 #endif
