@@ -34,7 +34,16 @@
 #  define SOLONG_MIN_WINDOW_SIZE 100
 # endif
 
-# define SOLONG_MAX_WIN_RATIO 0.9
+# define SOLONG_IMAGE_EXTENSION ".xpm"
+
+# define SOLONG_COLLECT_XPM "assets/textures/collectible/default/collect_"
+# define SOLONG_BACKGROUND_XPM "assets/textures/background/default/bg_"
+# define SOLONG_EXIT_XPM "assets/textures/exit/default/exit_"
+# define SOLONG_FLOOR_XPM "assets/textures/floor/default/floor_"
+# define SOLONG_WALL_XPM "assets/textures/wall/default/wall_"
+# define SOLONG_PLAYER_XPM "assets/textures/player/default/player_"
+
+# define SOLONG_MAX_WIN_RATIO 0.8
 # define SOLONG_GRID_SIZE_RATIO 0.1
 #  define SOLONG_MIN_GRID_SIZE 32
 
@@ -43,7 +52,7 @@
 # endif
 
 
-# define IMAGE_PATH "assets/image/out.xpm"
+# define IMAGE_WALL_PATH "assets/image/tree.xpm"
 
 enum	e_object_type
 {
@@ -167,8 +176,18 @@ t_img_data	*create_xpm_img(void *mlx_ptr, char *filepath); //use malloc
 t_img_data	*create_xpm_image_scale(void *mlx_ptr,
 				char *filename, int x, int y);
 
+// TEXTURE LOADING
+t_img_data	*get_texture(t_so_long *so_long, char *texture_path, int x, int y);
+t_list		*get_texture_list(t_so_long *so_long);
+
 // Image Scaling
-t_img_data	*img_scaling(t_img_data *orig_img, int x, int y);
+t_img_data	*img_scaling(t_img_data *orig_img, int x, int y, int op);
+
+//	Utils
+void		img_addback(t_img_data **img_lst, t_img_data *new_img);
+t_img_data	*find_from_img_list(t_list *img_list, enum e_object_type type);
+void		paint_img_to_img(t_img_data *img_canvas, t_img_data *img_paint,
+				int offset_x, int offset_y);
 
 /* ****************************************************** */
 
@@ -205,6 +224,5 @@ void	free_map_info(t_map_info **map_info);
 void	free_path_data(void *path_data);
 void	free_so_long(t_so_long **so_long);
 void	free_img_data(void *p);
-void	destroy_all_img(t_img_data *img);
 
 #endif

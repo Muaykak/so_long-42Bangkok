@@ -24,11 +24,7 @@ void	free_img_data(void *p)
 	{
 		temp = img_data->next;
 		if (img_data->orig_img != NULL)
-		{
-			mlx_destroy_image(img_data->orig_img->mlx_ptr,
-				img_data->orig_img->img_ptr);
-			free(img_data->orig_img);
-		}
+			free_img_data(img_data->orig_img);
 		mlx_destroy_image(img_data->mlx_ptr, img_data->img_ptr);
 		free(img_data);
 		img_data = temp;
@@ -58,4 +54,16 @@ void	free_so_long(t_so_long **so_long)
 	free(*so_long);
 	(*so_long) = NULL;
 	return ;
+}
+
+t_img_data	*find_from_img_list(t_list *img_list, enum e_object_type type)
+{
+	t_list	*temp;
+
+	if (img_list == NULL)
+		return (NULL);
+	temp = img_list;
+	while (temp != NULL && ((t_img_data *)(temp->content))->obj_type != type)
+		temp = temp->next;
+	return (((t_img_data *)(temp->content)));
 }

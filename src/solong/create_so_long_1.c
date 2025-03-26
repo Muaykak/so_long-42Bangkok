@@ -35,6 +35,9 @@ t_so_long	*create_so_long(void *mlx_ptr, t_map_info *map_info)
 		free_so_long(&so_long);
 		return (NULL);
 	}
+	printf("window size: %dx%d\n"
+			"canvas size: %dx%d\n"
+			"grid_size: %dx%d\n", so_long->window->width, so_long->window->height, so_long->canvas_x, so_long->canvas_y, so_long->grid_size, so_long->grid_size);
 	return (so_long);
 }
 
