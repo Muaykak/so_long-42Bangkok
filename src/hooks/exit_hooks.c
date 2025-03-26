@@ -18,9 +18,6 @@ int	key_handling(int keysym, t_so_long *so_long)
 	if (keysym == XK_Escape)
 	{
 		write(1, "Exit\n", 5);
-		destroy_all_img(so_long->window->img);
-		mlx_destroy_window(so_long->window->mlx_ptr, so_long->window->win_ptr);
-		mlx_destroy_display(so_long->window->mlx_ptr);
 		free_so_long(&so_long);
 		exit(EXIT_SUCCESS);
 	}
@@ -82,9 +79,7 @@ int	key_handling(int keysym, t_so_long *so_long)
 int	destroy_handling(t_so_long *so_long)
 {
 	write(1, "Exit\n", 5);
-	destroy_all_img(so_long->window->img);
-	mlx_destroy_window(so_long->window->mlx_ptr, so_long->window->win_ptr);
-	mlx_destroy_display(so_long->window->mlx_ptr);
+	ft_printf("reach here\n");
 	free_so_long(&so_long);
 	exit(EXIT_SUCCESS);
 	return (1);

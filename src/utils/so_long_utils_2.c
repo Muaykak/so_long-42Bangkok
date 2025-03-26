@@ -12,22 +12,6 @@
 
 #include "so_long.h"
 
-void	destroy_all_img(t_img_data *img)
-{
-	t_img_data	*temp;
-
-	if (img == NULL)
-		return ;
-	temp = img;
-	while (img != NULL)
-	{
-		mlx_destroy_image(img->mlx_ptr, img->img_ptr);
-		img = img->next;
-	}
-	img = temp;
-	return ;
-}
-
 void	free_img_data(void *p)
 {
 	t_img_data	*temp;
@@ -61,12 +45,16 @@ void	free_so_long(t_so_long **so_long)
 		free_map_info(&((*so_long)->map_info));
 	if ((*so_long)->window->img != NULL)
 		free_img_data(((*so_long)->window->img));
-	if ((*so_long)->window->mlx_ptr != NULL)
-		free((*so_long)->window->mlx_ptr);
 	if ((*so_long)->window != NULL)
+	{
+		mlx_destroy_window((*so_long)->window->mlx_ptr,
+			(*so_long)->window->win_ptr);
 		free((*so_long)->window);
+	}
 	if ((*so_long)->img_list)
 		ft_lstclear(&((*so_long)->img_list), &free_img_data);
+	mlx_destroy_display((*so_long)->mlx_ptr);
+	free((*so_long)->mlx_ptr);
 	free(*so_long);
 	(*so_long) = NULL;
 	return ;

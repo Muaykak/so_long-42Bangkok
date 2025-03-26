@@ -34,8 +34,8 @@
 #  define SOLONG_MIN_WINDOW_SIZE 100
 # endif
 
-# define SOLONG_MAX_WIN_RATIO 0.8
-# define SOLONG_GRID_SIZE_RATIO 0.05
+# define SOLONG_MAX_WIN_RATIO 0.9
+# define SOLONG_GRID_SIZE_RATIO 0.1
 #  define SOLONG_MIN_GRID_SIZE 32
 
 # ifndef SOLONG_MAX_MAP_SIZE
@@ -139,6 +139,7 @@ typedef struct	s_window
 
 typedef struct	s_so_long
 {
+	void			*mlx_ptr;
 	t_window		*window;
 	t_map_info		*map_info;
 	t_list			*img_list;

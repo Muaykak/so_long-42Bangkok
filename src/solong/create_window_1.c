@@ -30,6 +30,10 @@ t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr)
 		new_win->height = so_long->canvas_y;
 	else
 		new_win->height = so_long->max_win_y;
+	if (SOLONG_MIN_WINDOW_SIZE > new_win->height)
+		new_win->height = SOLONG_MIN_WINDOW_SIZE;
+	if (SOLONG_MIN_WINDOW_SIZE > new_win->width)
+		new_win->width = SOLONG_MIN_WINDOW_SIZE;
 	new_win->mlx_ptr = mlx_ptr;
 	new_win->win_ptr = mlx_new_window(mlx_ptr, new_win->width, new_win->height, "test");
 	if (new_win->win_ptr == NULL)

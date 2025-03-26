@@ -24,6 +24,7 @@ t_so_long	*create_so_long(void *mlx_ptr, t_map_info *map_info)
 		perror("Error\n\ncreate_so_long(): ");
 		return (NULL);
 	}
+	so_long->mlx_ptr = mlx_ptr;
 	mlx_get_screen_size(mlx_ptr, &(so_long->display_width),
 		&(so_long->display_height));
 	so_long->map_info = map_info;
