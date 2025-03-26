@@ -22,6 +22,8 @@ static int	map_check_minimum_sub1(int *count, char **map_char);
 
 int	map_char_check(char **map_char)
 {
+	if (map_char == NULL)
+		return (0);
 	if (map_check_rectangle(map_char) == 0)
 		return (0);
 	if (map_check_component(map_char) == 0)

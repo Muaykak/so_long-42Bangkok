@@ -32,7 +32,7 @@ char	**get_map_char(char *filepath)
 	int		fd;
 
 	if (filepath == NULL || map_check_extention(filepath) == 0)
-		exit(EXIT_FAILURE);
+		return (NULL);
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 	{

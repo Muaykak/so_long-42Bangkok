@@ -60,7 +60,7 @@ MLX_DIR		= minilibx-linux/
 
 LIBFT	= ${LFT_DIR}libft.a
 
-MLX		= ${MLX_DIR}libmlx_Linux.a
+MLX		= ${MLX_DIR}libmlx_Darwin.a
 
 #name
 
@@ -70,7 +70,7 @@ CC		= cc
 
 FLAG	= -Wall -Wextra -Werror
 
-LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext -lm
+LINK	= -L${MLX_DIR} -lmlx_Darwin -L${LFT_DIR} -lft -lX11 -lXext -lm
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}

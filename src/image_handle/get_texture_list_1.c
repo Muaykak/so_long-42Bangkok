@@ -20,7 +20,6 @@ static int	get_texture_list_sub2(t_so_long *so_long, t_list **new_list);
 t_list	*get_texture_list(t_so_long *so_long)
 {
 	t_list	*new_list;
-	t_img_data	*temp;
 
 	if (so_long == NULL)
 		return (NULL);
