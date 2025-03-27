@@ -39,6 +39,8 @@ void	free_so_long(t_so_long **so_long)
 		return ;
 	if ((*so_long)->map_info != NULL)
 		free_map_info(&((*so_long)->map_info));
+	if ((*so_long)->map_img != NULL)
+		free_img_data((*so_long)->map_img);
 	if ((*so_long)->window->img != NULL)
 		free_img_data(((*so_long)->window->img));
 	if ((*so_long)->window != NULL)

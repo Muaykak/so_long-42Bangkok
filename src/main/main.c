@@ -108,7 +108,7 @@ int	main(int argc, char **argv)
 		x = 0;
 		while (x < map_info->map_width)
 		{
-			if (map_info->map_data[y][x].type == EMPTY)
+			if (map_info->map_data[y][x].type == FLOOR)
 				ft_printf("0");
 			else if (map_info->map_data[y][x].type == WALL)
 				ft_printf("1");

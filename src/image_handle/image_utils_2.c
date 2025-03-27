@@ -60,7 +60,7 @@ void	paint_i_to_i_get_xy(int *xy_offset, int offset_x, int offset_y)
 		xy_offset[1] = 0;
 		xy_offset[3] = abs(offset_y);
 	}
-	else if (xy_offset[3] > 0)
+	else if (offset_y > 0)
 	{
 		xy_offset[1] = offset_y;
 		xy_offset[3] = -1 * offset_y;
