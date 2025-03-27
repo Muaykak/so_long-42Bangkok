@@ -85,7 +85,7 @@ int	main(int argc, char **argv)
 {
 	t_map_info	*map_info;
 //	t_img_data	*scale_img;
-	t_img_data	*temp2;
+//	t_img_data	*temp2;
 	t_list		*temp;
 	t_so_long	*so_long;
 	int			x;
@@ -141,20 +141,10 @@ int	main(int argc, char **argv)
 		free_so_long(&so_long);
 		return (0);
 	}
-	temp2 = find_from_img_list(so_long->img_list, FLOOR);
-	ft_printf("img show size: %dx%d\n", temp2->img_width,
-		temp2->img_height);
-	paint_img_to_img(so_long->window->img, temp2, 0, 0);
-	paint_img_to_img(so_long->window->img, temp2, so_long->grid_size, 0);
-	paint_img_to_img(so_long->window->img, temp2, so_long->grid_size * 2, 0);
-	temp2 = find_from_img_list(so_long->img_list, PLAYER);
-	ft_printf("img show size: %dx%d\n", temp2->img_width,
-		temp2->img_height);
-	paint_img_to_img(so_long->window->img, temp2, 0, 0);
-	temp2 = find_from_img_list(so_long->img_list, WALL);
-	paint_img_to_img(so_long->window->img, temp2, so_long->grid_size, 0);
-	temp2 = find_from_img_list(so_long->img_list, COLLECT);
-	paint_img_to_img(so_long->window->img, temp2, so_long->grid_size * 2, 0);
+	so_long->window = create_so_long_window(so_long, so_long->mlx_ptr);
+	map_data_link_img(&so_long);
+	map_first_paint(&so_long);
+	paint_img_to_img(so_long->window->img, so_long->map_img, 0, 0);
 
 	mlx_put_image_to_window(so_long->window->mlx_ptr, so_long->window->win_ptr, so_long->window->img->img_ptr, 0, 0);
 	so_long_exit_hooks(so_long);

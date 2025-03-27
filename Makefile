@@ -18,6 +18,8 @@ MAP_PROCESS_SRC_FILE	=	map_read_1.c \
 							map_data_3.c \
 							map_check_path_1.c \
 							map_check_path_2.c \
+							map_link_img_1.c \
+							map_paint_1.c \
 
 UTILS_SRC_FILE			=	so_long_utils_1.c \
 							so_long_utils_2.c \

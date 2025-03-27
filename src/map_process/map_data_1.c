@@ -16,10 +16,12 @@ t_map_data			**get_empty_map_data(char **map_char);
 static t_map_data	**get_empty_map_data_sub1(int map_height, int map_width,
 						t_map_data **new_map_data);
 
-/* THis function take an argument THE MAP PATHNAME  and 
+/*
+
+	THis function take an argument THE MAP PATHNAME  and 
 	take the [char **] from get_map_char 
 		which contain that map data in an array of strings
-		
+
 	this function will try to put in in formation from get_map_char
 	and put in into [t_map_data] data type which contain 
 	many useful attributes to use

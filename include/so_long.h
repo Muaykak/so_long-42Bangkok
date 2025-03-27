@@ -45,7 +45,7 @@
 
 # define SOLONG_MAX_WIN_RATIO 0.8
 # define SOLONG_GRID_SIZE_RATIO 0.1
-#  define SOLONG_MIN_GRID_SIZE 32
+#  define SOLONG_MIN_GRID_SIZE 16
 
 # ifndef SOLONG_MAX_MAP_SIZE
 #  define SOLONG_MAX_MAP_SIZE 100
@@ -104,7 +104,7 @@ typedef struct	s_map_data
 	{
 		int	x;
 		int	y;
-	}		img_link_coor;	
+	}		map_coor;	
 	t_img_data	*object_img;
 }				t_map_data;
 
@@ -154,6 +154,7 @@ typedef struct	s_so_long
 	t_list			*img_list;
 	int				max_win_x;
 	int				max_win_y;
+	t_img_data		*map_img;
 	int				canvas_x;
 	int				canvas_y;
 	int				display_width;
@@ -196,6 +197,8 @@ char		**get_map_char(char *filepath); //use malloc
 int			get_map_data(char *filepath, t_map_info **map_info);
 t_map_data	**get_empty_map_data(char **map_data);
 t_map_info	*new_map_info(char *file_name);
+int			map_data_link_img(t_so_long **so_long);
+int			map_first_paint(t_so_long **so_long);
 
 // Map_check
 int		map_char_check(char **map_char);

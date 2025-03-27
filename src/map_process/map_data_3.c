@@ -51,7 +51,7 @@ static void	get_map_data_sub1(t_map_info **map_info, char **map_char,
 {
 	if (map_char[y][x] == '0')
 	{
-		((*map_info)->map_data)[y][x].type = EMPTY;
+		((*map_info)->map_data)[y][x].type = FLOOR;
 		((*map_info)->map_data)[y][x].x = x;
 		((*map_info)->map_data)[y][x].y = y;
 	}
