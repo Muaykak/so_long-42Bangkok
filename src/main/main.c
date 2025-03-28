@@ -144,6 +144,7 @@ int	main(int argc, char **argv)
 	so_long->window = create_so_long_window(so_long, so_long->mlx_ptr);
 	map_data_link_img(&so_long);
 	map_first_paint(&so_long);
+	ft_printf("reach_here\n");
 	paint_img_to_img(so_long->window->img, so_long->map_img, 0, 0);
 
 	mlx_put_image_to_window(so_long->window->mlx_ptr, so_long->window->win_ptr, so_long->window->img->img_ptr, 0, 0);

@@ -104,9 +104,8 @@ int	get_map_data(char *filepath, t_map_info **map_info)
 		return (0);
 	get_map_data_sub3(map_info, map_char);
 	free_map_char(&map_char);
-	if ((*map_info)->collects == NULL)
+	if ((*map_info)->path_collects == NULL)
 		return (0);
-	ft_printf("get_map_data\n");
 	return (1);
 }
 

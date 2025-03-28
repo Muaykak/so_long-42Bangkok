@@ -19,7 +19,7 @@ static void	map_first_paint_sub1(t_map_data **temp, int x, int y, t_so_long **so
 	list = temp[y][x].object_list;
 	while (list != NULL)
 	{
-		paint_img_to_img((*so_long)->map_img, ((t_map_object *)list)->
+		paint_img_to_img((*so_long)->map_img, ((t_map_object *)list->content)->
 			object_img, temp[y][x].map_coor.x, temp[y][x].map_coor.y);
 		list = list->next;
 	}
