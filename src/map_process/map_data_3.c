@@ -28,6 +28,8 @@ static void	get_map_data_sub2(t_map_info **map_info, char **map_char,
 		((*map_info)->map_data)[y][x].type = EXIT;
 		((*map_info)->map_data)[y][x].x = x;
 		((*map_info)->map_data)[y][x].y = y;
+		((*map_info)->map_data)[y][x].now_x = x;
+		((*map_info)->map_data)[y][x].now_y = y;
 		((*map_info)->exit) = &(((*map_info)->map_data)[y][x]);
 	}
 	else if (map_char[y][x] == 'C')
@@ -35,6 +37,8 @@ static void	get_map_data_sub2(t_map_info **map_info, char **map_char,
 		((*map_info)->map_data)[y][x].type = COLLECT;
 		((*map_info)->map_data)[y][x].x = x;
 		((*map_info)->map_data)[y][x].y = y;
+		((*map_info)->map_data)[y][x].now_x = x;
+		((*map_info)->map_data)[y][x].now_y = y;
 		ft_lstadd_back(&((*map_info)->collects),
 			ft_lstnew(&(((*map_info)->map_data)[y][x])));
 		if ((t_map_data *)(ft_lstlast((*map_info)->collects)->content) !=
@@ -54,18 +58,24 @@ static void	get_map_data_sub1(t_map_info **map_info, char **map_char,
 		((*map_info)->map_data)[y][x].type = FLOOR;
 		((*map_info)->map_data)[y][x].x = x;
 		((*map_info)->map_data)[y][x].y = y;
+		((*map_info)->map_data)[y][x].now_x = x;
+		((*map_info)->map_data)[y][x].now_y = y;
 	}
 	else if (map_char[y][x] == '1')
 	{
 		((*map_info)->map_data)[y][x].type = WALL;
 		((*map_info)->map_data)[y][x].x = x;
 		((*map_info)->map_data)[y][x].y = y;
+		((*map_info)->map_data)[y][x].now_x = x;
+		((*map_info)->map_data)[y][x].now_y = y;
 	}
 	else if (map_char[y][x] == 'P')
 	{
 		((*map_info)->map_data)[y][x].type = PLAYER;
 		((*map_info)->map_data)[y][x].x = x;
 		((*map_info)->map_data)[y][x].y = y;
+		((*map_info)->map_data)[y][x].now_x = x;
+		((*map_info)->map_data)[y][x].now_y = y;
 		((*map_info)->player) = &(((*map_info)->map_data)[y][x]);
 	}
 }

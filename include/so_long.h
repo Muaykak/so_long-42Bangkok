@@ -51,9 +51,6 @@
 #  define SOLONG_MAX_MAP_SIZE 100
 # endif
 
-
-# define IMAGE_WALL_PATH "assets/image/tree.xpm"
-
 enum	e_object_type
 {
 	EMPTY,
@@ -94,6 +91,8 @@ typedef struct	s_map_data
 {
 	int		x;
 	int		y;
+	int		now_x;
+	int		now_y;
 	enum	e_object_type	type;
 	enum	e_object_status
 	{
@@ -118,6 +117,7 @@ typedef	struct	s_map_info
 	t_list			*collects;
 	t_map_data		*path_dest;
 	t_list			*path_data;
+	t_list			*update_map;
 }				t_map_info;
 
 typedef struct	s_map_path
@@ -167,6 +167,8 @@ typedef struct	s_so_long
 t_so_long	*create_so_long(void *mlx_ptr, t_map_info *map_info);
 t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr);
 
+int			player_move(t_so_long **so_long, int x, int y);
+
 /* ***************** IMAGE HANDLING ********************* */
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
 int	get_img_color(t_img_data *img, int color);
@@ -199,6 +201,7 @@ t_map_data	**get_empty_map_data(char **map_data);
 t_map_info	*new_map_info(char *file_name);
 int			map_data_link_img(t_so_long **so_long);
 int			map_first_paint(t_so_long **so_long);
+int			map_re_paint(t_so_long **so_long);
 
 // Map_check
 int		map_char_check(char **map_char);

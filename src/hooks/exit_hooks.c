@@ -29,6 +29,11 @@ int	key_handling(int keysym, t_so_long *so_long)
 		}
 		else
 		{
+			if (player_move(&so_long, 0, -1) == 0)
+				return (1);	
+			map_re_paint(&so_long);
+			mlx_put_image_to_window(so_long->mlx_ptr,
+				so_long->window->win_ptr, so_long->map_img->img_ptr, 0, 0);
 			so_long->num_moves++;
 			ft_printf("Move: UP\n"
 						"number of moves: %u\n", so_long->num_moves);
@@ -42,6 +47,11 @@ int	key_handling(int keysym, t_so_long *so_long)
 		}
 		else
 		{
+			if (player_move(&so_long, 0, 1) == 0)
+				return (1);	
+			map_re_paint(&so_long);
+			mlx_put_image_to_window(so_long->mlx_ptr,
+				so_long->window->win_ptr, so_long->map_img->img_ptr, 0, 0);
 			so_long->num_moves++;
 			ft_printf("Move: DOWN\n"
 						"number of moves: %u\n", so_long->num_moves);
@@ -55,6 +65,11 @@ int	key_handling(int keysym, t_so_long *so_long)
 		}
 		else
 		{
+			if (player_move(&so_long, -1, 0) == 0)
+				return (1);	
+			map_re_paint(&so_long);
+			mlx_put_image_to_window(so_long->mlx_ptr,
+				so_long->window->win_ptr, so_long->map_img->img_ptr, 0, 0);
 			so_long->num_moves++;
 			ft_printf("Move: LEFT\n"
 						"number of moves: %u\n", so_long->num_moves);
@@ -68,6 +83,11 @@ int	key_handling(int keysym, t_so_long *so_long)
 		}
 		else
 		{
+			if (player_move(&so_long, 1, 0) == 0)
+				return (1);	
+			map_re_paint(&so_long);
+			mlx_put_image_to_window(so_long->mlx_ptr,
+				so_long->window->win_ptr, so_long->map_img->img_ptr, 0, 0);
 			so_long->num_moves++;
 			ft_printf("Move: RIGHT\n"
 						"number of moves: %u\n", so_long->num_moves);

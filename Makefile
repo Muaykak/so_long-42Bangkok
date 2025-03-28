@@ -2,6 +2,7 @@ MAIN_SRC_FILE	=	main.c \
 
 SO_LONG_SRC_FILE		=	create_so_long_1.c \
 							create_window_1.c \
+							player_move_1.c \
 
 IMAGE_HANDLE_SRC_FILE	=	image_utils_1.c \
 							image_utils_2.c \
@@ -19,7 +20,8 @@ MAP_PROCESS_SRC_FILE	=	map_read_1.c \
 							map_check_path_1.c \
 							map_check_path_2.c \
 							map_link_img_1.c \
-							map_paint_1.c \
+							map_first_paint_1.c \
+							map_re_paint_1.c \
 
 UTILS_SRC_FILE			=	so_long_utils_1.c \
 							so_long_utils_2.c \
@@ -62,7 +64,7 @@ MLX_DIR		= minilibx-linux/
 
 LIBFT	= ${LFT_DIR}libft.a
 
-MLX		= ${MLX_DIR}libmlx_Linux.a
+MLX		= ${MLX_DIR}libmlx_Darwin.a
 
 #name
 
@@ -72,7 +74,7 @@ CC		= cc
 
 FLAG	= -Wall -Wextra -Werror
 
-LINK	= -L${MLX_DIR} -lmlx_Linux -L${LFT_DIR} -lft -lX11 -lXext -lm
+LINK	= -L${MLX_DIR} -lmlx_Darwin -L${LFT_DIR} -lft -lX11 -lXext -lm
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT} ${MLX}
