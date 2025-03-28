@@ -62,6 +62,12 @@ enum	e_object_type
 	COLLECT
 };
 
+enum	e_object_status
+{
+	FALSE,
+	TRUE
+};
+
 typedef	struct	s_img_data
 {
 	void				*img_ptr;
@@ -82,29 +88,26 @@ typedef	struct	s_img_data
 
 typedef struct s_map_object
 {
-	int		x;
-	int		y;
-	int		status;
+	int						x;
+	int						y;
+	enum e_object_status	status;
+	enum e_object_type		type;
+	t_img_data				*object_img;
 }				t_map_object;
 
 typedef struct	s_map_data
 {
 	int		x;
 	int		y;
-	int		now_x;
-	int		now_y;
 	enum	e_object_type	type;
-	enum	e_object_status
-	{
-		FALSE,
-		TRUE
-	}		status;
+	enum 	e_object_status	status;
 	struct	s_img_coordinate
 	{
 		int	x;
 		int	y;
 	}		map_coor;	
 	t_img_data	*object_img;
+	t_list		*object_list;
 }				t_map_data;
 
 typedef	struct	s_map_info
@@ -112,8 +115,11 @@ typedef	struct	s_map_info
 	t_map_data		**map_data;
 	int				map_height;
 	int				map_width;
-	t_map_data		*player;
-	t_map_data		*exit;	
+	t_map_data		*path_player;
+	t_map_data		*path_exit;
+	t_list			*path_collects;
+	t_map_object	*player;
+	t_map_object	*exit;	
 	t_list			*collects;
 	t_map_data		*path_dest;
 	t_list			*path_data;
@@ -168,6 +174,8 @@ t_so_long	*create_so_long(void *mlx_ptr, t_map_info *map_info);
 t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr);
 
 int			player_move(t_so_long **so_long, int x, int y);
+
+void		max_win_size_calculation(t_so_long *so_long);
 
 /* ***************** IMAGE HANDLING ********************* */
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
@@ -225,7 +233,7 @@ int		destroy_handling(t_so_long *so_long);
 /* Utility Function */
 void	free_map_char(char ***map_char);
 void	free_collect(void *collect);
-void	free_map_data(t_map_data ***map_data);
+void	free_map_data(t_map_data ***map_data, t_map_info *map_info);
 void	free_map_info(t_map_info **map_info);
 void	free_path_data(void *path_data);
 void	free_so_long(t_so_long **so_long);

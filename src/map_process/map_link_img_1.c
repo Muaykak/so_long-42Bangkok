@@ -26,7 +26,8 @@ static int	create_map_img(t_so_long **so_long)
 
 int map_data_link_img(t_so_long **so_long)
 {
-	t_map_data	**temp;
+	t_map_data		**temp;
+	t_map_object	*object;
 	int			x;
 	int			y;
 
@@ -41,8 +42,39 @@ int map_data_link_img(t_so_long **so_long)
 		x = 0;
 		while (x < (*so_long)->map_info->map_width)
 		{
-			temp[y][x].object_img =
-				find_from_img_list((*so_long)->img_list, temp[y][x].type);
+			object = (t_map_object *)ft_calloc(1, sizeof(t_map_object));
+			if (object == NULL)
+			{
+				perror("Error\n\nmap_data_link_img(): ");
+				free_so_long(so_long);
+				exit(EXIT_FAILURE);
+			}
+			object->object_img = find_from_img_list((*so_long)->img_list, FLOOR);
+			object->type = FLOOR;
+			object->x = x;
+			object->y = y;
+			ft_lstadd_back(&(temp[y][x].object_list), ft_lstnew(&(*object)));
+			object = (t_map_object *)ft_calloc(1, sizeof(t_map_object));
+			if (object == NULL)
+			{
+				perror("Error\n\nmap_data_link_img(): ");
+				free_so_long(so_long);
+				exit(EXIT_FAILURE);
+			}
+			if (temp[y][x].type != FLOOR)
+			{
+				object->object_img = find_from_img_list((*so_long)->img_list, temp[y][x].type);
+				object->type = object->object_img->obj_type;
+				object->x = x;
+				object->y = y;
+				ft_lstadd_back(&(temp[y][x].object_list), ft_lstnew(&(*object)));
+				if (temp[y][x].type == PLAYER)
+					(*so_long)->map_info->player = &(*object);
+				else if (temp[y][x].type == COLLECT)
+					ft_lstadd_front(&((*so_long)->map_info->collects), ft_lstnew(&(*object)));
+				else if (temp[y][x].type == EXIT)
+					(*so_long)->map_info->player = &(*object);
+			}
 			temp[y][x].map_coor.x = x * (*so_long)->grid_size;
 			temp[y][x].map_coor.y = y * (*so_long)->grid_size;
 			x++;

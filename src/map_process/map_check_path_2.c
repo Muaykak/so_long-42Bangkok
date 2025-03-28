@@ -41,9 +41,9 @@ int	map_check_path(t_map_info **map_info)
 {
 	if (map_info == NULL || (*map_info) == NULL)
 		return (0);
-	(*map_info)->path_dest = (*map_info)->exit;
-	map_check_path_sub1((*map_info), (*map_info)->player->x,
-		(*map_info)->player->y);
+	(*map_info)->path_dest = (*map_info)->path_exit;
+	map_check_path_sub1((*map_info), (*map_info)->path_player->x,
+		(*map_info)->path_player->y);
 	if ((*map_info)->path_dest->status == FALSE)
 	{
 		free_map_info(map_info);

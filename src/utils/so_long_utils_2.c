@@ -67,5 +67,7 @@ t_img_data	*find_from_img_list(t_list *img_list, enum e_object_type type)
 	temp = img_list;
 	while (temp != NULL && ((t_img_data *)(temp->content))->obj_type != type)
 		temp = temp->next;
+	if (temp == NULL)
+		return (NULL);
 	return (((t_img_data *)(temp->content)));
 }
