@@ -34,8 +34,8 @@ void	push_map_to_window(t_so_long *so_long)
 		cal_y = 0;
 	else if (cal_y > offset->max_y)
 		cal_y = offset->max_y;
-		offset->x = cal_x;
-		offset->y = cal_y;
+	offset->x = cal_x;
+	offset->y = cal_y;
 	mlx_put_image_to_window(so_long->mlx_ptr, so_long->window->win_ptr,
 		so_long->map_img->img_ptr, -1 * offset->x, -1 * offset->y);
 }
