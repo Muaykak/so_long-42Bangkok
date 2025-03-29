@@ -52,7 +52,7 @@ void	free_map_data(t_map_data ***map_data, t_map_info *map_info)
 	while (y >= 0)
 	{
 		x = map_info->map_width - 1;
-		while (y > 0 && y < map_info->map_height && x >= 0)
+		while (y < map_info->map_height && x >= 0)
 		{
 			if ((*map_data)[y][x].object_list != NULL)
 				ft_lstclear(&((*map_data)[y][x].object_list), &free_path_data);

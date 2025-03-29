@@ -26,7 +26,6 @@ int	player_move(t_so_long **so_long, int x, int y)
 	player = (*so_long)->map_info->player;
 	target = ((t_map_object *)(ft_lstlast(map[player->y + y]
 		[player->x + x].object_list)->content));
-	ft_printf("player old pos: %dx%d\n", player->x, player->y);
 	if (target->type == WALL)
 	{
 		ft_printf("Hit the wall!\n");
@@ -44,7 +43,6 @@ int	player_move(t_so_long **so_long, int x, int y)
 		player->x += x;
 		player->y += y;
 		(*so_long)->map_info->update_map = new_list;
-		ft_printf("player new pos: %dx%d\n", player->x, player->y);
 	}
 	return (1);
 }

@@ -28,12 +28,10 @@ int	map_re_paint(t_so_long **so_long)
 		list = target->object_list;
 		while (list != NULL)
 		{
-			ft_printf("paint object: %d\ton map:%dx%d\n", ((t_map_object *)(list->content))->object_img->obj_type, target->x, target->y);
 			paint_img_to_img((*so_long)->map_img, ((t_map_object *)(list->
 				content))->object_img, target->map_coor.x, target->map_coor.y);
 			list = list->next;			
 		}
-	ft_printf("update map: %p\n", map_update);
 		map_update = map_update->next;
 	}
 	ft_lstclear(&((*so_long)->map_info->update_map), &free_collect);
