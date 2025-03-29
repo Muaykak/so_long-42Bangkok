@@ -39,5 +39,5 @@ void	so_long_exit_hooks(t_so_long *so_long)
 		&destroy_handling, so_long);
 	mlx_hook(so_long->window->win_ptr, KeyPress, KeyPressMask,
 		&key_handling, so_long);
-	mlx_expose_hook(so_long->window->win_ptr, &expose_handling,so_long);
+	mlx_expose_hook(so_long->window->win_ptr, &expose_handling, so_long);
 }

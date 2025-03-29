@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int create_window_img(t_window *win);
+int			create_window_img(t_window *win);
 
 void	create_so_long_window_win1(t_so_long *so_long, t_window *new_win)
 {
@@ -44,7 +44,8 @@ t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr)
 	}
 	create_so_long_window_win1(so_long, new_win);
 	new_win->mlx_ptr = mlx_ptr;
-	new_win->win_ptr = mlx_new_window(mlx_ptr, new_win->width, new_win->height, "test");
+	new_win->win_ptr = mlx_new_window(mlx_ptr, new_win->width, new_win->height,
+			"test");
 	create_window_img(new_win);
 	if (new_win->win_ptr == NULL || new_win->img == NULL)
 	{
@@ -55,7 +56,7 @@ t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr)
 	return (new_win);
 }
 
-int create_window_img(t_window *win)
+int	create_window_img(t_window *win)
 {
 	if (win == NULL)
 		return (0);

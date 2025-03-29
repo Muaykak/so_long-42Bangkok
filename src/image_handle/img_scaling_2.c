@@ -14,8 +14,7 @@
 
 // create xpm image with respective image size x,y
 
-t_img_data	*create_xpm_image_scale(void *mlx_ptr,
-				char *filename, int x, int y)
+t_img_data	*create_xpm_image_scale(void *mlx_ptr, char *filename, int x, int y)
 {
 	t_img_data	*orig_img;
 	t_img_data	*scale_img;
@@ -24,7 +23,7 @@ t_img_data	*create_xpm_image_scale(void *mlx_ptr,
 	if (orig_img == NULL)
 		return (NULL);
 	if (ft_strncmp(SOLONG_BACKGROUND_XPM, filename,
-		ft_strlen(SOLONG_BACKGROUND_XPM)) == 0)
+			ft_strlen(SOLONG_BACKGROUND_XPM)) == 0)
 		scale_img = img_scaling(orig_img, x, y, 1);
 	else
 		scale_img = img_scaling(orig_img, x, y, 0);

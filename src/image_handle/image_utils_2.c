@@ -37,15 +37,15 @@ int	check_canvas_boundary(t_img_data *img_canvas, int x, int y)
 {
 	if (img_canvas == NULL)
 		return (0);
-	if (x < 0 || x > img_canvas->img_width 
-		|| y < 0 || y > img_canvas->img_height)
+	if (x < 0 || x > img_canvas->img_width || y < 0
+		|| y > img_canvas->img_height)
 		return (0);
 	return (1);
 }
 
 void	paint_i_to_i_get_xy(int *xy_offset, int offset_x, int offset_y)
 {
-	if (offset_x  <= 0)
+	if (offset_x <= 0)
 	{
 		xy_offset[0] = 0;
 		xy_offset[2] = abs(offset_x);
@@ -55,7 +55,7 @@ void	paint_i_to_i_get_xy(int *xy_offset, int offset_x, int offset_y)
 		xy_offset[0] = offset_x;
 		xy_offset[2] = -1 * offset_x;
 	}
-	if (offset_y  <= 0)
+	if (offset_y <= 0)
 	{
 		xy_offset[1] = 0;
 		xy_offset[3] = abs(offset_y);
@@ -67,8 +67,8 @@ void	paint_i_to_i_get_xy(int *xy_offset, int offset_x, int offset_y)
 	}
 }
 
-void	paint_img_to_img(t_img_data *img_c, t_img_data *img_p,
-			int offset_x, int offset_y)
+void	paint_img_to_img(t_img_data *img_c, t_img_data *img_p, int offset_x,
+		int offset_y)
 {
 	int		xy[4];
 	char	*c_pos;
@@ -83,12 +83,12 @@ void	paint_img_to_img(t_img_data *img_c, t_img_data *img_p,
 		x = xy[0];
 		while (x < img_c->img_width && x + xy[2] < img_p->img_width)
 		{
-				c_pos = img_c->addr + (((y) * img_c
-					->size_line) + ((x) * (img_c->bpp / 8)));
-				p_pos = img_p->addr + (((y + xy[3]) * img_p
-					->size_line) + ((x + xy[2]) * (img_p->bpp / 8)));
-				if ((*((unsigned int *)p_pos) & 0x00FFFFFF) != 0x000000)
-					*((unsigned int *)c_pos) = *((unsigned int *)p_pos);
+			c_pos = img_c->addr + (((y) * img_c->size_line) + ((x) * (img_c
+							->bpp / 8)));
+			p_pos = img_p->addr + (((y + xy[3]) * img_p->size_line) + ((x
+							+ xy[2]) * (img_p->bpp / 8)));
+			if ((*((unsigned int *)p_pos) & 0x00FFFFFF) != 0x000000)
+				*((unsigned int *)c_pos) = *((unsigned int *)p_pos);
 			x++;
 		}
 		y++;

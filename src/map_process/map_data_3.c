@@ -14,14 +14,14 @@
 
 static void	map_data_put_xy(t_map_info *map_info, char **map_char);
 int			get_map_data(char *filepath, t_map_info **map_info);
-static void		get_map_data_sub3(t_map_info **map_info, char **map_char);
-static void		get_map_data_sub1(t_map_info **map_info, char **map_char,
-				int y, int x);
-static void		get_map_data_sub2(t_map_info **map_info, char **map_char,
-				int y, int x);
+static void	get_map_data_sub3(t_map_info **map_info, char **map_char);
+static void	get_map_data_sub1(t_map_info **map_info, char **map_char, int y,
+				int x);
+static void	get_map_data_sub2(t_map_info **map_info, char **map_char, int y,
+				int x);
 
-static void	get_map_data_sub2(t_map_info **map_info, char **map_char,
-			int y, int x)
+static void	get_map_data_sub2(t_map_info **map_info, char **map_char, int y,
+		int x)
 {
 	if (map_char[y][x] == 'E')
 	{
@@ -37,8 +37,8 @@ static void	get_map_data_sub2(t_map_info **map_info, char **map_char,
 		((*map_info)->map_data)[y][x].y = y;
 		ft_lstadd_back(&((*map_info)->path_collects),
 			ft_lstnew(&(((*map_info)->map_data)[y][x])));
-		if ((t_map_data *)(ft_lstlast((*map_info)->path_collects)->content) !=
-			&(((*map_info)->map_data)[y][x]))
+		if ((t_map_data *)(ft_lstlast((*map_info)->path_collects)->content)
+			!= &(((*map_info)->map_data)[y][x]))
 		{
 			perror("Error\nget_map_data_sub2(): ");
 			ft_lstclear(&(*map_info)->path_collects, &free_collect);
@@ -46,8 +46,8 @@ static void	get_map_data_sub2(t_map_info **map_info, char **map_char,
 	}
 }
 
-static void	get_map_data_sub1(t_map_info **map_info, char **map_char,
-			int y, int x)
+static void	get_map_data_sub1(t_map_info **map_info, char **map_char, int y,
+		int x)
 {
 	if (map_char[y][x] == '0')
 	{
@@ -91,7 +91,7 @@ static void	get_map_data_sub3(t_map_info **map_info, char **map_char)
 
 int	get_map_data(char *filepath, t_map_info **map_info)
 {
-	char		**map_char;
+	char	**map_char;
 
 	map_char = get_map_char(filepath);
 	if (map_char_check(map_char) == 0)
@@ -108,7 +108,6 @@ int	get_map_data(char *filepath, t_map_info **map_info)
 		return (0);
 	return (1);
 }
-
 
 static void	map_data_put_xy(t_map_info *map_info, char **map_char)
 {

@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	max_win_size_calculation(t_so_long *so_long);
+void		max_win_size_calculation(t_so_long *so_long);
 
 t_so_long	*create_so_long(void *mlx_ptr, t_map_info *map_info)
 {
@@ -37,13 +37,13 @@ void	max_win_size_calculation_sub1(t_so_long *so_long)
 	int	temp;
 
 	if (so_long->grid_size * so_long->map_info->map_width > so_long->max_win_x
-		|| so_long->grid_size * so_long->map_info->map_height
-		> so_long->max_win_y)
+		|| so_long->grid_size
+		* so_long->map_info->map_height > so_long->max_win_y)
 	{
 		temp = (int)round(so_long->max_win_x
-			/ (double)so_long->map_info->map_width);
+				/ (double)so_long->map_info->map_width);
 		so_long->grid_size = (int)round(so_long->max_win_y
-			/ (double)so_long->map_info->map_height);
+				/ (double)so_long->map_info->map_height);
 		if (temp < so_long->grid_size)
 			so_long->grid_size = temp;
 		if (so_long->grid_size < SOLONG_MIN_GRID_SIZE)
@@ -55,16 +55,15 @@ void	max_win_size_calculation_sub1(t_so_long *so_long)
 
 void	max_win_size_calculation(t_so_long *so_long)
 {
-	int temp;
+	int	temp;
 
 	so_long->max_win_x = (int)round(so_long->display_width
-		* SOLONG_MAX_WIN_RATIO);
+			* SOLONG_MAX_WIN_RATIO);
 	so_long->max_win_y = (int)round(so_long->display_height
-		* SOLONG_MAX_WIN_RATIO);
+			* SOLONG_MAX_WIN_RATIO);
 	so_long->grid_size = (int)round(so_long->display_height
-		* SOLONG_GRID_SIZE_RATIO);
-	temp = (int)round(so_long->display_width
-		* SOLONG_GRID_SIZE_RATIO);
+			* SOLONG_GRID_SIZE_RATIO);
+	temp = (int)round(so_long->display_width * SOLONG_GRID_SIZE_RATIO);
 	if (temp < so_long->grid_size)
 		so_long->grid_size = temp;
 	max_win_size_calculation_sub1(so_long);

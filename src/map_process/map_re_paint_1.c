@@ -14,7 +14,7 @@
 
 void	map_re_paint_sub1(t_so_long **so_long, t_map_data *target)
 {
-	t_list	*list;
+	t_list			*list;
 	t_map_object	*content;
 
 	list = target->object_list;
@@ -23,15 +23,15 @@ void	map_re_paint_sub1(t_so_long **so_long, t_map_data *target)
 		content = ((t_map_object *)(list->content));
 		if (content->type != COLLECT || content->status != TRUE)
 		{
-			if (content->type != FLOOR && content->status == TRUE 
+			if (content->type != FLOOR && content->status == TRUE
 				&& content->object_img->next != NULL)
-				paint_img_to_img((*so_long)->map_img, content->object_img->
-					next, target->map_coor.x, target->map_coor.y);
+				paint_img_to_img((*so_long)->map_img, content->object_img->next,
+					target->map_coor.x, target->map_coor.y);
 			else
 				paint_img_to_img((*so_long)->map_img, content->object_img,
 					target->map_coor.x, target->map_coor.y);
 		}
-		list = list->next;			
+		list = list->next;
 	}
 }
 

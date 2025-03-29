@@ -18,24 +18,25 @@ static t_map_data	**get_empty_map_data_sub1(int map_height, int map_width,
 
 /*
 
-	THis function take an argument THE MAP PATHNAME  and 
-	take the [char **] from get_map_char 
+	THis function take an argument THE MAP PATHNAME  and
+	take the [char **] from get_map_char
 		which contain that map data in an array of strings
 
 	this function will try to put in in formation from get_map_char
-	and put in into [t_map_data] data type which contain 
+	and put in into [t_map_data] data type which contain
 	many useful attributes to use
 
 */
 static t_map_data	**get_empty_map_data_sub1(int map_height, int map_width,
-	t_map_data **new_map_data)
+		t_map_data **new_map_data)
 {
 	int	temp;
 
 	temp = 0;
 	while (temp < map_height)
 	{
-		new_map_data[temp] = (t_map_data *)ft_calloc(map_width, sizeof(t_map_data));
+		new_map_data[temp] = (t_map_data *)ft_calloc(map_width,
+				sizeof(t_map_data));
 		if (new_map_data[temp] == NULL)
 		{
 			perror("Error\nget_map_data(): ");
@@ -64,7 +65,8 @@ t_map_data	**get_empty_map_data(char **map_char)
 	map_width = ft_strlen(map_char[0]);
 	while (map_char[map_height] != NULL)
 		map_height++;
-	new_map_data = (t_map_data **)ft_calloc(map_height + 1, sizeof(t_map_data *));
+	new_map_data = (t_map_data **)ft_calloc(map_height + 1,
+			sizeof(t_map_data *));
 	if (new_map_data == NULL)
 	{
 		perror("Error\nget_map_data(): ");

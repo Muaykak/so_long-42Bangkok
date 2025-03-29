@@ -100,10 +100,14 @@ int	main(int argc, char **argv)
 	so_long = create_so_long(mlx_connection, map_info);
 	so_long->img_list = get_texture_list(so_long);
 	if (so_long->img_list == NULL)
+	{
 		free_so_long(&so_long);
+		exit(EXIT_FAILURE);
+	}
 	so_long->window = create_so_long_window(so_long, so_long->mlx_ptr);
 	map_data_link_img(&so_long);
 	map_first_paint(&so_long);
+	mlx_clear_window(so_long->mlx_ptr, so_long->window->win_ptr);
 	push_map_to_window(so_long);
 	so_long_exit_hooks(so_long);
 	mlx_loop(mlx_connection);

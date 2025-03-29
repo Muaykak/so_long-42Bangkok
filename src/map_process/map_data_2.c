@@ -26,7 +26,6 @@ t_map_info	*new_map_info(char *file_name)
 	}
 	if (get_map_data(file_name, &map_info) == 0)
 	{
-		ft_printf("go here\n");
 		free_map_info(&map_info);
 		return (NULL);
 	}

@@ -21,8 +21,8 @@ void	push_map_to_window(t_so_long *so_long)
 
 	if (so_long == NULL)
 		return ;
-	player_pos = &((so_long->map_info->map_data)[so_long->map_info->player
-		->y][so_long->map_info->player->x]);
+	player_pos = &((so_long->map_info->map_data)[so_long->map_info->player->y]
+		[so_long->map_info->player->x]);
 	offset = &(so_long->window->offset);
 	cal_x = player_pos->map_coor.x - (so_long->window->width / 2);
 	if (cal_x < 0)

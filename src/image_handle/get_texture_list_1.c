@@ -37,8 +37,8 @@ static int	get_texture_list_sub0(t_so_long *so_long, t_list **new_list)
 {
 	t_img_data	*temp;
 
-	temp = get_texture(so_long, SOLONG_BACKGROUND_XPM,
-		so_long->canvas_x, so_long->canvas_y);
+	temp = get_texture(so_long, SOLONG_BACKGROUND_XPM, so_long->canvas_x,
+			so_long->canvas_y);
 	if (temp == NULL)
 	{
 		if (*new_list != NULL)
@@ -46,8 +46,8 @@ static int	get_texture_list_sub0(t_so_long *so_long, t_list **new_list)
 		return (0);
 	}
 	ft_lstadd_back(new_list, ft_lstnew(&temp[0]));
-	temp = get_texture(so_long, SOLONG_FLOOR_XPM,
-		so_long->grid_size, so_long->grid_size);
+	temp = get_texture(so_long, SOLONG_FLOOR_XPM, so_long->grid_size,
+			so_long->grid_size);
 	if (temp == NULL)
 	{
 		if (*new_list != NULL)
@@ -62,8 +62,8 @@ static int	get_texture_list_sub1(t_so_long *so_long, t_list **new_list)
 {
 	t_img_data	*temp;
 
-	temp = get_texture(so_long, SOLONG_WALL_XPM,
-		so_long->grid_size, so_long->grid_size);
+	temp = get_texture(so_long, SOLONG_WALL_XPM, so_long->grid_size,
+			so_long->grid_size);
 	if (temp == NULL)
 	{
 		if (*new_list != NULL)
@@ -71,8 +71,8 @@ static int	get_texture_list_sub1(t_so_long *so_long, t_list **new_list)
 		return (0);
 	}
 	ft_lstadd_back(new_list, ft_lstnew(&temp[0]));
-	temp = get_texture(so_long, SOLONG_PLAYER_XPM,
-		so_long->grid_size, so_long->grid_size);
+	temp = get_texture(so_long, SOLONG_PLAYER_XPM, so_long->grid_size,
+			so_long->grid_size);
 	if (temp == NULL)
 	{
 		if (*new_list != NULL)
@@ -87,8 +87,8 @@ static int	get_texture_list_sub2(t_so_long *so_long, t_list **new_list)
 {
 	t_img_data	*temp;
 
-	temp = get_texture(so_long, SOLONG_COLLECT_XPM,
-		so_long->grid_size, so_long->grid_size);
+	temp = get_texture(so_long, SOLONG_COLLECT_XPM, so_long->grid_size,
+			so_long->grid_size);
 	if (temp == NULL)
 	{
 		if (*new_list != NULL)
@@ -96,8 +96,8 @@ static int	get_texture_list_sub2(t_so_long *so_long, t_list **new_list)
 		return (0);
 	}
 	ft_lstadd_back(new_list, ft_lstnew(&temp[0]));
-	temp = get_texture(so_long, SOLONG_EXIT_XPM,
-		so_long->grid_size, so_long->grid_size);
+	temp = get_texture(so_long, SOLONG_EXIT_XPM, so_long->grid_size,
+			so_long->grid_size);
 	if (temp == NULL)
 	{
 		if (*new_list != NULL)

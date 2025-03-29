@@ -12,11 +12,11 @@
 
 #include "so_long.h"
 
-int	map_char_check(char **map_char);
+int			map_char_check(char **map_char);
 
-int	map_check_component(char **map_char);
-int	map_check_rectangle(char **map);
-int	map_check_minimum(char **map_char);
+int			map_check_component(char **map_char);
+int			map_check_rectangle(char **map);
+int			map_check_minimum(char **map_char);
 
 static int	map_check_minimum_sub1(int *count, char **map_char);
 
@@ -37,7 +37,7 @@ int	map_check_rectangle(char **map)
 {
 	size_t	line_size;
 	int		i;
-	
+
 	i = 1;
 	line_size = ft_strlen(map[0]);
 	while (map[i] != NULL)
@@ -74,10 +74,8 @@ int	map_check_component(char **map_char)
 				&& map_char[y][x] != 'P' && map_char[y][x] != 'E'
 				&& map_char[y][x] != 'C')
 			{
-				ft_printf("Error\n: The map can be composed of only these 5" 
-					" characters:\n0 for an empty space,\n1 for a wall,\nC "
-					"for a collectible,\nE for a map exit,\nP for the player’"
-					"s starting position.\n");
+				ft_printf("Error\n: The map can be composed of only these 5\n"
+					"\'0\' \'1\' \'P\' \'C\' \'E\'\n");
 				free_map_char(&map_char);
 				return (0);
 			}
@@ -92,29 +90,29 @@ int	map_check_component(char **map_char)
 collectible. */
 int	map_check_minimum(char **map_char)
 {
-	int	x;
-	int	y;
+	int	xy[2];
 	int	count[3];
+
 	if (map_char == NULL || *map_char == NULL)
 		return (0);
 	count[0] = 0;
 	count[1] = 0;
 	count[2] = 0;
-	y = 0;
-	while (map_char[y] != NULL)
+	xy[1] = 0;
+	while (map_char[xy[1]] != NULL)
 	{
-		x = 0;
-		while (map_char[y][x] != '\0')
+		xy[0] = 0;
+		while (map_char[xy[1]][xy[0]] != '\0')
 		{
-			if (map_char[y][x] == 'P')
+			if (map_char[xy[1]][xy[0]] == 'P')
 				count[0]++;
-			if (map_char[y][x] == 'E')
+			if (map_char[xy[1]][xy[0]] == 'E')
 				count[1]++;
-			if (map_char[y][x] == 'C')
+			if (map_char[xy[1]][xy[0]] == 'C')
 				count[2]++;
-			x++;
+			xy[0]++;
 		}
-		y++;
+		xy[1]++;
 	}
 	return (map_check_minimum_sub1(count, map_char));
 }

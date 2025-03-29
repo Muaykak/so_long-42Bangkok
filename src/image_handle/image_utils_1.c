@@ -20,10 +20,9 @@ int			get_pixel_color(t_img_data *img, int x, int y);
 
 t_img_data	*create_image(void *mlx_ptr, int x, int y)
 {
-	int	a;
+	int			a;
 	t_img_data	*new_img;
 
-	
 	new_img = (t_img_data *)ft_calloc(1, sizeof(t_img_data));
 	if (new_img == NULL)
 		return (0);
@@ -41,7 +40,7 @@ t_img_data	*create_image(void *mlx_ptr, int x, int y)
 		new_img->local_endian = 0;
 	new_img->mlx_ptr = mlx_ptr;
 	new_img->addr = mlx_get_data_addr(new_img->img_ptr, &new_img->bpp,
-		&new_img->size_line, &new_img->endian);
+			&new_img->size_line, &new_img->endian);
 	new_img->img_height = y;
 	new_img->img_width = x;
 	return (new_img);
@@ -56,8 +55,8 @@ t_img_data	*create_xpm_img(void *mlx_ptr, char *filename)
 	img = (t_img_data *)calloc(1, sizeof(t_img_data));
 	if (img == NULL)
 		return (0);
-	img->img_ptr = mlx_xpm_file_to_image(mlx_ptr, filename,
-		&img->img_width, &img->img_height);
+	img->img_ptr = mlx_xpm_file_to_image(mlx_ptr, filename, &img->img_width,
+			&img->img_height);
 	if (img->img_ptr == NULL)
 	{
 		free(img);
@@ -69,8 +68,8 @@ t_img_data	*create_xpm_img(void *mlx_ptr, char *filename)
 	else
 		img->local_endian = 0;
 	img->mlx_ptr = mlx_ptr;
-	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp,
-		&img->size_line, &img->endian);
+	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_line,
+			&img->endian);
 	return (img);
 }
 

@@ -12,12 +12,12 @@
 
 #include "so_long.h"
 
-char			**get_map_char(char *filepath);
+char		**get_map_char(char *filepath);
 
-static char		*read_map(int fd);
-static int		map_check_extention(char *filepath);
-static char		*map_read_check(char *new_cat, char *str, int fd);
-static char		*read_map_sub1(char *new_cat, char *str);
+static char	*read_map(int fd);
+static int	map_check_extention(char *filepath);
+static char	*map_read_check(char *new_cat, char *str, int fd);
+static char	*read_map_sub1(char *new_cat, char *str);
 
 /* Objective : read the map as format from the path given from argument
 				RETURN as ** array of STRINGS **
@@ -36,7 +36,7 @@ char	**get_map_char(char *filepath)
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("\nCAN\'T OPEN FILE");
+		perror("Error\n\nCAN\'T OPEN FILE");
 		return (NULL);
 	}
 	map_read = read_map(fd);
@@ -56,7 +56,7 @@ char	*read_map(int fd)
 {
 	char	*str;
 	char	*temp;
-	char	*new_cat;	
+	char	*new_cat;
 
 	new_cat = 0;
 	str = get_next_line(fd);

@@ -35,7 +35,7 @@ void	check_complete(t_so_long **so_long)
 void	control_hooks_sub1(t_so_long **so_long, int x, int y)
 {
 	if (player_move(so_long, x, y) == 0)
-		return ;	
+		return ;
 	map_re_paint(so_long);
 	push_map_to_window(*so_long);
 	(*so_long)->num_moves++;
@@ -45,10 +45,10 @@ void	control_hooks_sub1(t_so_long **so_long, int x, int y)
 
 void	control_hooks(int keysym, t_so_long **so_long)
 {
-	if (keysym != XK_w && keysym != XK_W && keysym != XK_Up
-		&& keysym != XK_s && keysym != XK_S && keysym != XK_Down
-		&& keysym != XK_a && keysym != XK_A && keysym != XK_Left
-		&& keysym != XK_d && keysym != XK_D && keysym != XK_Right)
+	if (keysym != XK_w && keysym != XK_W && keysym != XK_Up && keysym != XK_s
+		&& keysym != XK_S && keysym != XK_Down && keysym != XK_a
+		&& keysym != XK_A && keysym != XK_Left && keysym != XK_d
+		&& keysym != XK_D && keysym != XK_Right)
 		return ;
 	if ((*so_long)->num_moves >= UINT_MAX)
 		ft_printf("maximum number of moves\n");
