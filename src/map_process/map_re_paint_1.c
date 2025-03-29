@@ -16,8 +16,8 @@ int	map_re_paint(t_so_long **so_long)
 {
 	t_list		*map_update;
 	t_map_data	*target;
+	t_list		*list;
 
-	ft_printf("update map: %p\n", ((*so_long)->map_info->update_map));
 	if (so_long == NULL || *so_long == NULL
 		|| (*so_long)->map_info->update_map == NULL)
 		return (0);
@@ -25,9 +25,15 @@ int	map_re_paint(t_so_long **so_long)
 	while (map_update != NULL)
 	{
 		target = ((t_map_data *)map_update->content);
-		ft_printf("repaint: %dx%d object type:%d\n", target->map_coor.x, target->map_coor.y, target->type);
-		paint_img_to_img((*so_long)->map_img, target->object_img,
-			target->map_coor.x, target->map_coor.y);
+		list = target->object_list;
+		while (list != NULL)
+		{
+			ft_printf("paint object: %d\ton map:%dx%d\n", ((t_map_object *)(list->content))->object_img->obj_type, target->x, target->y);
+			paint_img_to_img((*so_long)->map_img, ((t_map_object *)(list->
+				content))->object_img, target->map_coor.x, target->map_coor.y);
+			list = list->next;			
+		}
+	ft_printf("update map: %p\n", map_update);
 		map_update = map_update->next;
 	}
 	ft_lstclear(&((*so_long)->map_info->update_map), &free_collect);

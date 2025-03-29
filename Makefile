@@ -25,6 +25,7 @@ MAP_PROCESS_SRC_FILE	=	map_read_1.c \
 
 UTILS_SRC_FILE			=	so_long_utils_1.c \
 							so_long_utils_2.c \
+							so_long_utils_3.c \
 
 HOOKS_SRC_FILE			=	exit_hooks.c \
 							control_hooks.c \

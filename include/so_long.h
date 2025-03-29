@@ -196,7 +196,6 @@ t_img_data	*img_scaling(t_img_data *orig_img, int x, int y, int op);
 
 //	Utils
 void		img_addback(t_img_data **img_lst, t_img_data *new_img);
-t_img_data	*find_from_img_list(t_list *img_list, enum e_object_type type);
 void		paint_img_to_img(t_img_data *img_canvas, t_img_data *img_paint,
 				int offset_x, int offset_y);
 
@@ -238,5 +237,11 @@ void	free_map_info(t_map_info **map_info);
 void	free_path_data(void *path_data);
 void	free_so_long(t_so_long **so_long);
 void	free_img_data(void *p);
+
+void 	ft_move_to_newlist(t_list	**old, t_list *target, t_list **new,
+			void (*lstadd)(t_list **, t_list *));
+
+t_list			*find_from_object_lst(t_list *object_list, enum e_object_type type);
+t_img_data	*find_from_img_list(t_list *img_list, enum e_object_type type);
 
 #endif

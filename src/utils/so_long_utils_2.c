@@ -58,6 +58,20 @@ void	free_so_long(t_so_long **so_long)
 	return ;
 }
 
+t_list	*find_from_object_lst(t_list *object_list, enum e_object_type type)
+{
+	t_list	*target;
+
+	if (object_list == NULL)
+		return (NULL);
+	target = object_list;
+	while (target != NULL && ((t_map_object *)(target->content))->type != type)
+		target = target->next;
+	if (target == NULL)
+		return (NULL);
+	return (target);
+}
+
 t_img_data	*find_from_img_list(t_list *img_list, enum e_object_type type)
 {
 	t_list	*temp;

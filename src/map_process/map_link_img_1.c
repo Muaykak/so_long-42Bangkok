@@ -54,15 +54,15 @@ int map_data_link_img(t_so_long **so_long)
 			object->x = x;
 			object->y = y;
 			ft_lstadd_back(&(temp[y][x].object_list), ft_lstnew(&(*object)));
-			object = (t_map_object *)ft_calloc(1, sizeof(t_map_object));
-			if (object == NULL)
-			{
-				perror("Error\n\nmap_data_link_img(): ");
-				free_so_long(so_long);
-				exit(EXIT_FAILURE);
-			}
 			if (temp[y][x].type != FLOOR)
 			{
+				object = (t_map_object *)ft_calloc(1, sizeof(t_map_object));
+				if (object == NULL)
+				{
+					perror("Error\n\nmap_data_link_img(): ");
+					free_so_long(so_long);
+					exit(EXIT_FAILURE);
+				}
 				object->object_img = find_from_img_list((*so_long)->img_list, temp[y][x].type);
 				object->type = object->object_img->obj_type;
 				object->x = x;
@@ -73,7 +73,7 @@ int map_data_link_img(t_so_long **so_long)
 				else if (temp[y][x].type == COLLECT)
 					ft_lstadd_front(&((*so_long)->map_info->collects), ft_lstnew(&(*object)));
 				else if (temp[y][x].type == EXIT)
-					(*so_long)->map_info->player = &(*object);
+					(*so_long)->map_info->exit = &(*object);
 			}
 			temp[y][x].map_coor.x = x * (*so_long)->grid_size;
 			temp[y][x].map_coor.y = y * (*so_long)->grid_size;
