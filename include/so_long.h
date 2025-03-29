@@ -45,7 +45,7 @@
 
 # define SOLONG_MAX_WIN_RATIO 0.8
 # define SOLONG_GRID_SIZE_RATIO 0.1
-#  define SOLONG_MIN_GRID_SIZE 16
+#  define SOLONG_MIN_GRID_SIZE 128
 
 # ifndef SOLONG_MAX_MAP_SIZE
 #  define SOLONG_MAX_MAP_SIZE 100
@@ -143,12 +143,21 @@ typedef struct	s_img_scale_data
 	int	offset_y;
 }				t_img_scale_data;
 
+typedef struct	s_offset
+{
+	int				max_x;
+	int				max_y;
+	int				x;
+	int				y;
+}				t_offset;
+
 typedef struct	s_window
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	int				width;
 	int				height;
+	t_offset		offset;
 	t_img_data		*img;
 }				t_window;
 
@@ -176,6 +185,8 @@ t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr);
 int			player_move(t_so_long **so_long, int x, int y);
 
 void		max_win_size_calculation(t_so_long *so_long);
+
+void		push_map_to_window(t_so_long *so_long);
 
 /* ***************** IMAGE HANDLING ********************* */
 int	put_pixel_img(t_img_data *img, int x, int y, int color);
@@ -228,6 +239,8 @@ int		map_check_path_data(t_list **path_data, int path_x, int path_y);
 void	so_long_exit_hooks(t_so_long *so_long);
 int		key_handling(int keysym, t_so_long *so_long);
 int		destroy_handling(t_so_long *so_long);
+int		expose_handling(t_so_long *so_long);
+void	control_hooks(int keysym, t_so_long **so_long);
 
 /* Utility Function */
 void	free_map_char(char ***map_char);

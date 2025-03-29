@@ -61,7 +61,6 @@ void	img_scale_stretch_put_color(t_img_data *new_img, t_img_scale_data *scale_da
 	y = 0;
 	scale_data->factor_x = 1.0 / scale_data->factor_x;
 	scale_data->factor_y = 1.0 / scale_data->factor_y;
-	printf("factor_x: %.2f\nfactor_y: %.2f\n", scale_data->factor_x, scale_data->factor_y);
 	while (y < new_img->img_height)
 	{
 		x = 0;

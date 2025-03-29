@@ -61,6 +61,7 @@ int	player_move(t_so_long **so_long, int x, int y)
 			{
 				exit = (*so_long)->map_info->exit;
 				exit->status = TRUE;
+				player->status = TRUE;
 				ft_lstadd_front(&new_list, ft_lstnew(&(map[exit->y][exit->x])));
 			}
 		}

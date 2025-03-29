@@ -28,6 +28,8 @@ void	create_so_long_window_win1(t_so_long *so_long, t_window *new_win)
 		new_win->height = SOLONG_MIN_WINDOW_SIZE;
 	if (SOLONG_MIN_WINDOW_SIZE > new_win->width)
 		new_win->width = SOLONG_MIN_WINDOW_SIZE;
+	new_win->offset.max_x = so_long->canvas_x - new_win->width;
+	new_win->offset.max_y = so_long->canvas_y - new_win->height;
 }
 
 t_window	*create_so_long_window(t_so_long *so_long, void *mlx_ptr)
