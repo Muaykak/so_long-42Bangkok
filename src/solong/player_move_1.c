@@ -12,8 +12,25 @@
 
 # include "so_long.h"
 
-/* remove from the list in map*/
+int	check_all_collect(t_so_long *so_long)
+{
+	t_list			*lst;
+	t_map_object	*temp;
+	int		count;
 
+	lst = so_long->map_info->collects;
+	count = 0;
+	while (lst != NULL)
+	{
+		temp = (t_map_object *)(lst->content);
+		if (temp->status == TRUE)
+			count++;
+		lst = lst->next;
+	}
+	if (count == ft_lstsize(so_long->map_info->collects))
+		return (-1);
+	return (count);
+}
 
 int	player_move(t_so_long **so_long, int x, int y)
 {
@@ -21,6 +38,7 @@ int	player_move(t_so_long **so_long, int x, int y)
 	t_map_object	*player;
 	t_list		*new_list;
 	t_map_object	*target;
+	t_map_object	*exit;
 
 	map = (*so_long)->map_info->map_data;
 	player = (*so_long)->map_info->player;
@@ -36,6 +54,16 @@ int	player_move(t_so_long **so_long, int x, int y)
 	{
 		ft_lstadd_front(&new_list, ft_lstnew(&(map[player->y][player->x])));
 		ft_lstadd_front(&new_list, ft_lstnew(&(map[player->y + y][player->x + x])));
+		if (target->type == COLLECT && target->status == FALSE)
+		{
+			target->status = TRUE;
+			if (check_all_collect(*so_long) == -1)
+			{
+				exit = (*so_long)->map_info->exit;
+				exit->status = TRUE;
+				ft_lstadd_front(&new_list, ft_lstnew(&(map[exit->y][exit->x])));
+			}
+		}
 		ft_move_to_newlist(&(map[player->y][player->x].object_list),
 			find_from_object_lst(map[player->y][player->x].object_list
 			, PLAYER), &(map[player->y + y][player->x + x].object_list),

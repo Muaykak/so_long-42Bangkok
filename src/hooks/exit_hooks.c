@@ -12,6 +12,26 @@
 
 #include "so_long.h"
 
+void	check_complete(t_so_long **so_long)
+{
+	t_map_object	*exit_object;
+	t_map_object	*player;
+
+	if (so_long == NULL)
+		return ;
+	exit_object = (*so_long)->map_info->exit;
+	player = (*so_long)->map_info->player;
+	if (exit_object == FALSE)
+		return ;
+	if (exit_object->x == player->x && exit_object->y == player->y)
+	{
+		free_so_long(so_long);
+		ft_printf("COMPLETE\n");
+		exit(EXIT_SUCCESS);
+	}
+	return ;
+}
+
 int	key_handling(int keysym, t_so_long *so_long)
 {
 	ft_printf("keysym: %d\n", keysym);
@@ -37,6 +57,7 @@ int	key_handling(int keysym, t_so_long *so_long)
 			so_long->num_moves++;
 			ft_printf("Move: UP\n"
 						"number of moves: %u\n", so_long->num_moves);
+			check_complete(&so_long);
 		}
 	}
 	else if (keysym == XK_s || keysym == XK_S || keysym == XK_Down)
@@ -55,6 +76,7 @@ int	key_handling(int keysym, t_so_long *so_long)
 			so_long->num_moves++;
 			ft_printf("Move: DOWN\n"
 						"number of moves: %u\n", so_long->num_moves);
+			check_complete(&so_long);
 		}
 	}
 	else if (keysym == XK_a || keysym == XK_A || keysym == XK_Left)
@@ -73,6 +95,7 @@ int	key_handling(int keysym, t_so_long *so_long)
 			so_long->num_moves++;
 			ft_printf("Move: LEFT\n"
 						"number of moves: %u\n", so_long->num_moves);
+			check_complete(&so_long);
 		}
 	}
 	else if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)
@@ -91,6 +114,7 @@ int	key_handling(int keysym, t_so_long *so_long)
 			so_long->num_moves++;
 			ft_printf("Move: RIGHT\n"
 						"number of moves: %u\n", so_long->num_moves);
+			check_complete(&so_long);
 		}
 	}
 	return (1);

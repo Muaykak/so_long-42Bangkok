@@ -28,8 +28,9 @@ int	map_re_paint(t_so_long **so_long)
 		list = target->object_list;
 		while (list != NULL)
 		{
-			paint_img_to_img((*so_long)->map_img, ((t_map_object *)(list->
-				content))->object_img, target->map_coor.x, target->map_coor.y);
+			if (((t_map_object *)(list->content))->type != COLLECT || ((t_map_object *)(list->content))->status != TRUE)
+				paint_img_to_img((*so_long)->map_img, ((t_map_object *)(list->
+					content))->object_img, target->map_coor.x, target->map_coor.y);
 			list = list->next;			
 		}
 		map_update = map_update->next;
