@@ -13,8 +13,8 @@
 #include "so_long.h"
 
 /* move the target list from the old list to new list */
-void ft_move_to_newlist(t_list	**old, t_list *target, t_list **new,
-		void (*lstadd)(t_list **, t_list *))
+void	ft_move_to_newlist(t_list	**old, t_list *target, t_list **new,
+			void (*lstadd)(t_list **, t_list *))
 {
 	t_list	*run;
 
@@ -35,5 +35,5 @@ void ft_move_to_newlist(t_list	**old, t_list *target, t_list **new,
 	run->next = target->next;
 	target->next = NULL;
 	lstadd(new, target);
-	return ;	
-}	
+	return ;
+}

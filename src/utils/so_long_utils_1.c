@@ -26,7 +26,7 @@ void	free_collect(void *collect)
 
 void	free_map_char(char ***map_char)
 {
-	int i;
+	int	i;
 
 	if (map_char == NULL || (*map_char) == NULL)
 		return ;
