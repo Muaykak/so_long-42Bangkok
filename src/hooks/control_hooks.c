@@ -21,12 +21,14 @@ void	check_complete(t_so_long **so_long)
 		return ;
 	exit_object = (*so_long)->map_info->exit;
 	player = (*so_long)->map_info->player;
-	if (exit_object == FALSE)
+	if (exit_object->status == FALSE)
 		return ;
 	if (exit_object->x == player->x && exit_object->y == player->y)
 	{
+		ft_printf(GREEN_COLOR "\n\n🎉🎉COMPLETE✨🎆✅\n" RESET_COLOR);
+		ft_printf(YELLOW_COLOR "NUMBER OF MOVES: %d\n\n" RESET_COLOR,
+			(*so_long)->num_moves);
 		free_so_long(so_long);
-		ft_printf("COMPLETE\n");
 		exit(EXIT_SUCCESS);
 	}
 	return ;
@@ -36,8 +38,7 @@ void	control_hooks_sub1(t_so_long **so_long, int x, int y)
 {
 	if (player_move(so_long, x, y) == 0)
 		return ;
-	map_re_paint(so_long);
-	push_map_to_window(*so_long);
+	paint_map_to_window(*so_long);
 	(*so_long)->num_moves++;
 	ft_printf("number of moves: %u\n", (*so_long)->num_moves);
 	check_complete(so_long);

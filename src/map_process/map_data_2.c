@@ -29,7 +29,8 @@ t_map_info	*new_map_info(char *file_name)
 		free_map_info(&map_info);
 		return (NULL);
 	}
-	map_check_path(&map_info);
 	map_wall_check(&map_info);
+	ft_printf("wall_check_pass\n");
+	map_check_path(&map_info);
 	return (map_info);
 }

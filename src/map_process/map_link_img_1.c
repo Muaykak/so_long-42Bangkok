@@ -12,18 +12,6 @@
 
 #include "so_long.h"
 
-static int	create_map_img(t_so_long **so_long)
-{
-	(*so_long)->map_img = create_image((*so_long)->mlx_ptr,
-			(*so_long)->canvas_x, (*so_long)->canvas_y);
-	if ((*so_long)->map_img == NULL)
-	{
-		free_so_long(so_long);
-		return (0);
-	}
-	return (1);
-}
-
 static t_map_object	*map_data_link_img_sub1(t_so_long **so_long, int x, int y)
 {
 	t_map_object	*object;
@@ -35,8 +23,7 @@ static t_map_object	*map_data_link_img_sub1(t_so_long **so_long, int x, int y)
 		free_so_long(so_long);
 		exit(EXIT_FAILURE);
 	}
-	object->object_img = find_from_img_list((*so_long)->img_list,
-			FLOOR);
+	object->object_img = find_from_img_list((*so_long)->img_list, FLOOR);
 	object->type = FLOOR;
 	object->x = x;
 	object->y = y;
@@ -75,8 +62,7 @@ static void	map_data_link_img_sub3(t_so_long **so_long, int x, int y)
 	if (temp[y][x].type != FLOOR)
 	{
 		object = map_data_link_img_sub2(so_long, x, y);
-		ft_lstadd_back(&(temp[y][x].object_list),
-			ft_lstnew(&(*object)));
+		ft_lstadd_back(&(temp[y][x].object_list), ft_lstnew(&(*object)));
 		if (temp[y][x].type == PLAYER)
 			(*so_long)->map_info->player = &(*object);
 		else if (temp[y][x].type == COLLECT)
@@ -89,16 +75,14 @@ static void	map_data_link_img_sub3(t_so_long **so_long, int x, int y)
 
 int	map_data_link_img(t_so_long **so_long)
 {
-	t_map_data		**temp;
-	int				x;
-	int				y;
+	t_map_data	**temp;
+	int			x;
+	int			y;
 
 	if (*so_long == NULL || so_long == NULL)
 		return (0);
 	temp = (*so_long)->map_info->map_data;
 	y = 0;
-	if (create_map_img(so_long) == 0)
-		exit(EXIT_FAILURE);
 	while (y < (*so_long)->map_info->map_height)
 	{
 		x = 0;

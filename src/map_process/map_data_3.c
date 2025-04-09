@@ -94,9 +94,7 @@ int	get_map_data(char *filepath, t_map_info **map_info)
 	char	**map_char;
 
 	map_char = get_map_char(filepath);
-	if (map_char_check(map_char) == 0)
-		free_map_char(&map_char);
-	if (map_char == NULL)
+	if (map_char == NULL || map_char_check(map_char) == 0)
 		return (0);
 	map_data_put_xy(*map_info, map_char);
 	(*map_info)->map_data = get_empty_map_data(map_char);

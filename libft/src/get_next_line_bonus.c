@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 	t_gnl_data	gnl;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
-		return (0);
+		return (free_leftover(leftover), NULL);
 	gnl.return_line = 0;
 	gnl.cl_ret = check_leftover(&leftover[fd], &gnl);
 	if (gnl.cl_ret == -1)

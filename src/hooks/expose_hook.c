@@ -15,6 +15,6 @@
 int	expose_handling(t_so_long *so_long)
 {
 	mlx_clear_window(so_long->mlx_ptr, so_long->window->win_ptr);
-	push_map_to_window(so_long);
+	paint_map_to_window(so_long);
 	return (1);
 }

@@ -37,3 +37,14 @@ void	ft_move_to_newlist(t_list	**old, t_list *target, t_list **new,
 	lstadd(new, target);
 	return ;
 }
+
+// print the string to standard error
+ssize_t	ft_strerr(char *str)
+{
+	size_t	str_l;
+
+	if (str == NULL)
+		return (0);
+	str_l = ft_strlen(str);
+	return (write(STDERR_FILENO, str, str_l));
+}

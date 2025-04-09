@@ -131,5 +131,6 @@ int		check_leftover(char **leftover, t_gnl_data *gnl);
 size_t	check_newline(char *buffer);
 int		put_leftover(t_goread_data *gr, char **leftover,
 			t_gnl_data *gnl);
+void	free_leftover(char **leftover);
 
 #endif

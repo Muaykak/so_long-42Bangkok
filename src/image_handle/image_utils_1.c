@@ -29,6 +29,7 @@ t_img_data	*create_image(void *mlx_ptr, int x, int y)
 	new_img->img_ptr = mlx_new_image(mlx_ptr, x, y);
 	if (new_img->img_ptr == NULL)
 	{
+		ft_printf("img_size %dx%d\n", x, y);
 		perror("Error\ncreate_img(): ");
 		free(new_img);
 		return (0);

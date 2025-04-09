@@ -22,13 +22,13 @@
 # include <math.h>
 # include <stdio.h>
 
-# define HEIGHT 400
-# define WIDTH 400
+// # define HEIGHT 400
+// # define WIDTH 400
 
-# define RED 0xFFFF0000
-# define GREEN 0xFF00FF00
-# define BLUE 0xFF0000FF
-# define WHITE 0xFFFFFFFF
+# define RED_COLOR "\x1b[31m"
+# define GREEN_COLOR "\x1b[32m"
+# define YELLOW_COLOR "\x1b[33m"
+# define RESET_COLOR "\x1b[0m"
 
 # ifndef SOLONG_MIN_WINDOW_SIZE
 #  define SOLONG_MIN_WINDOW_SIZE 100
@@ -37,7 +37,6 @@
 # define SOLONG_IMAGE_EXTENSION ".xpm"
 
 # define SOLONG_COLLECT_XPM "assets/textures/collectible/default/collect_"
-# define SOLONG_BACKGROUND_XPM "assets/textures/background/default/bg_"
 # define SOLONG_EXIT_XPM "assets/textures/exit/default/exit_"
 # define SOLONG_FLOOR_XPM "assets/textures/floor/default/floor_"
 # define SOLONG_WALL_XPM "assets/textures/wall/default/wall_"
@@ -46,10 +45,6 @@
 # define SOLONG_MAX_WIN_RATIO 0.8
 # define SOLONG_GRID_SIZE_RATIO 0.1
 # define SOLONG_MIN_GRID_SIZE 128
-
-# ifndef SOLONG_MAX_MAP_SIZE
-#  define SOLONG_MAX_MAP_SIZE 100
-# endif
 
 enum						e_object_type
 {
@@ -99,6 +94,7 @@ typedef struct s_map_data
 {
 	int						x;
 	int						y;
+	enum e_object_status	path_check;
 	enum e_object_type		type;
 	enum e_object_status	status;
 	struct					s_img_coordinate
@@ -121,9 +117,6 @@ typedef struct s_map_info
 	t_map_object			*player;
 	t_map_object			*exit;
 	t_list					*collects;
-	t_map_data				*path_dest;
-	t_list					*path_data;
-	t_list					*update_map;
 }							t_map_info;
 
 typedef struct s_map_path
@@ -151,12 +144,27 @@ typedef struct s_offset
 	int						y;
 }							t_offset;
 
+typedef struct s_draw_map
+{
+	int						max_off_x;
+	int						max_off_y;
+	int						range_y;
+	int						range_x;
+	int						start_x;
+	int						start_y;
+	int						end_x;
+	int						end_y;
+	int						off_x;
+	int						off_y;
+}							t_draw_map;
+
 typedef struct s_window
 {
 	void					*mlx_ptr;
 	void					*win_ptr;
 	int						width;
 	int						height;
+	t_draw_map				draw;
 	t_offset				offset;
 	t_img_data				*img;
 }							t_window;
@@ -188,7 +196,7 @@ int							player_move(t_so_long **so_long, int x, int y);
 
 void						max_win_size_calculation(t_so_long *so_long);
 
-void						push_map_to_window(t_so_long *so_long);
+void						paint_map_to_window(t_so_long *so_long);
 
 /* ***************** IMAGE HANDLING ********************* */
 int							put_pixel_img(t_img_data *img, int x, int y,
@@ -220,13 +228,12 @@ void						paint_img_to_img(t_img_data *img_canvas,
 /* ****************************************************** */
 
 /* ************** . Map processing . ************* */
+t_list						*read_list_map(int fd);
 char						**get_map_char(char *filepath);
 int							get_map_data(char *filepath, t_map_info **map_info);
 t_map_data					**get_empty_map_data(char **map_data);
 t_map_info					*new_map_info(char *file_name);
 int							map_data_link_img(t_so_long **so_long);
-int							map_first_paint(t_so_long **so_long);
-int							map_re_paint(t_so_long **so_long);
 
 // Map_check
 int							map_char_check(char **map_char);
@@ -239,8 +246,13 @@ int							map_wall_check(t_map_info **map_info);
 int							map_check_path(t_map_info **map_info);
 void						map_check_path_sub1(t_map_info *map_info,
 								int path_x, int path_y);
-int							map_check_path_data(t_list **path_data, int path_x,
-								int path_y);
+void						add_fill_list(t_list **fill_list,
+								t_map_info *map_info, t_map_path *mark);
+void						add_fill_list_error(t_list **fill_list,
+								t_map_info *map_info);
+int							map_check_path_data(t_map_data **map_data,
+								int path_x, int path_y);
+void						reset_check_path(t_map_info *map_info);
 
 /* *********************************************** */
 
@@ -269,5 +281,6 @@ t_list						*find_from_object_lst(t_list *object_list,
 								enum e_object_type type);
 t_img_data					*find_from_img_list(t_list *img_list,
 								enum e_object_type type);
+ssize_t						ft_strerr(char *str);
 
 #endif

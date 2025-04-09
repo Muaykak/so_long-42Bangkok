@@ -57,7 +57,7 @@ static int	map_wall_check_sub2(t_map_info *map_info, int x)
 	{
 		if (((map_info->map_data)[y][x]).type != WALL)
 		{
-			ft_printf("Error\nThe map must be enclosed by walls.\n\n");
+			ft_strerr("Error\nThe map must be enclosed by walls.\n\n");
 			return (0);
 		}
 		y++;
@@ -74,7 +74,7 @@ static int	map_wall_check_sub1(t_map_info *map_info, int y)
 	{
 		if (((map_info->map_data)[y][x]).type != WALL)
 		{
-			ft_printf("Error\nThe map must be enclosed by walls.\n\n");
+			ft_strerr("Error\nThe map must be enclosed by walls.\n\n");
 			return (0);
 		}
 		x++;

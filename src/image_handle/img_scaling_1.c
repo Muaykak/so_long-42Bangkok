@@ -34,7 +34,7 @@ t_img_data	*img_scaling(t_img_data *orig_img, int x, int y, int op)
 		return (NULL);
 	if (x <= 0 || y <= 0)
 	{
-		ft_printf("Error\n\nimg_scaling(): invalid x, y value\n");
+		ft_strerr("Error\n\nimg_scaling(): invalid x, y value\n");
 		return (NULL);
 	}
 	if (x == orig_img->img_width && y == orig_img->img_height)

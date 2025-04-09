@@ -44,7 +44,7 @@ int	map_check_rectangle(char **map)
 	{
 		if (ft_strlen(map[i]) != line_size)
 		{
-			ft_printf("Error\n: The map must has rectangle shape\n");
+			ft_strerr("Error\n: The map must has rectangle shape\n");
 			free_map_char(&map);
 			return (0);
 		}
@@ -74,7 +74,7 @@ int	map_check_component(char **map_char)
 				&& map_char[y][x] != 'P' && map_char[y][x] != 'E'
 				&& map_char[y][x] != 'C')
 			{
-				ft_printf("Error\n: The map can be composed of only these 5\n"
+				ft_strerr("Error\n: The map can be composed of only these 5\n"
 					"\'0\' \'1\' \'P\' \'C\' \'E\'\n");
 				free_map_char(&map_char);
 				return (0);
@@ -123,7 +123,7 @@ static int	map_check_minimum_sub1(int *count, char **map_char)
 		return (0);
 	if (count[0] != 1 || count[1] != 1 || count[2] < 1)
 	{
-		ft_printf("Error\n: To be valid, a map must contain 1 exit, 1 starting "
+		ft_strerr("Error\n: To be valid, a map must contain 1 exit, 1 starting "
 			"position\n and at least 1 collectible.\n");
 		free_map_char(&map_char);
 		return (0);

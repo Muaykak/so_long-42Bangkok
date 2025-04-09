@@ -64,10 +64,7 @@ t_img_data	*get_texture(t_so_long *so_long, char *texture_path, int x, int y)
 
 void	img_type_specify(char *texture_path, t_img_data *img)
 {
-	if (ft_strncmp(SOLONG_BACKGROUND_XPM, texture_path,
-			ft_strlen(SOLONG_BACKGROUND_XPM)) == 0)
-		img->obj_type = BACKGROUND;
-	else if (ft_strncmp(SOLONG_FLOOR_XPM, texture_path,
+	if (ft_strncmp(SOLONG_FLOOR_XPM, texture_path,
 			ft_strlen(SOLONG_FLOOR_XPM)) == 0)
 		img->obj_type = FLOOR;
 	else if (ft_strncmp(SOLONG_WALL_XPM, texture_path,

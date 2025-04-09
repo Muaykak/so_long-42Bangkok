@@ -17,9 +17,7 @@ static void	main_sub1(t_so_long **so_long, void *mlx_connection)
 	(*so_long)->window = create_so_long_window((*so_long),
 			(*so_long)->mlx_ptr);
 	map_data_link_img(so_long);
-	map_first_paint(so_long);
-	mlx_clear_window((*so_long)->mlx_ptr, (*so_long)->window->win_ptr);
-	push_map_to_window(*so_long);
+	paint_map_to_window(*so_long);
 	so_long_exit_hooks(*so_long);
 	mlx_loop(mlx_connection);
 }
@@ -32,7 +30,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Error\n\nMust have 1 argument\nThe argument"
+		ft_strerr("Error\n\nMust have 1 argument\nThe argument"
 			" is filepath to a map file\n\n");
 		exit(EXIT_FAILURE);
 	}

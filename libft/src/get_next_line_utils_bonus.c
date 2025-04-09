@@ -18,6 +18,22 @@ static int	check_leftover_sub1(char **leftover, t_gnl_data *gnl, \
 int			put_leftover(t_goread_data *gr, char **leftover,
 				t_gnl_data *gnl);
 
+void	free_leftover(char **leftover)
+{
+	int	i;
+
+	if (leftover == NULL)
+		return ;
+	i = OPEN_MAX - 1;
+	while (i >= 0)
+	{
+		if (leftover[i] != NULL)
+			free(leftover[i]);
+		leftover[i] = NULL;
+		i--;
+	}
+}
+
 int	check_leftover(char **leftover, t_gnl_data *gnl)
 {
 	t_check_leftover_data	cl;
